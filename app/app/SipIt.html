@@ -1,0 +1,24 @@
+<div class="sipit" (click)="rollTheDice($event)">
+  <div id="output" class="output">{{output}}</div>
+</div>
+<div class="playersMenuBtn" (click)="openMenu('players', true)"></div>
+<div class="settingsMenuBtn" (click)="openMenu('settings', true)"></div>
+
+<div class="playersMenu menu">
+  <h2>Spieler</h2>
+  <ul id="players" class="players">
+    <li *ngFor="#player of players; #i = index" class="player">
+      {{player.name}}
+      <span class="delete" (click)="removePlayer(i)">Löschen</span>
+    </li>
+  </ul>
+  <input type="text" placeholder="Name" class="nameInput" id="nameInput"><div class="addBtn" (click)="addPlayer()"></div>
+  <div class="close" (click)="openMenu('players', false)"></div>
+</div>
+
+<div class="settingsMenu menu">
+  <h2>Einstellungen</h2>
+  <input type="range" class="settingsRange" id="minSipsInput" min="1" max="12" [(ngModel)]="config.minSips" (change)="configUpdate()"><span class="settingsLable">{{config.minSips}} min</span>
+  <input type="range" class="settingsRange" id="maxSipsInput" min="1" max="12" [(ngModel)]="config.maxSips" (change)="configUpdate()"><span class="settingsLable">{{config.maxSips}} max</span>
+  <div class="close" (click)="openMenu('settings', false)"></div>
+</div>
