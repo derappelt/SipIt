@@ -18,7 +18,7 @@
 
 <div class="settingsMenu menu">
   <h2>Einstellungen</h2>
-  <input type="range" class="settingsRange" id="minSipsInput" min="1" max="12" [(ngModel)]="config.minSips"><span class="settingsLable">{{config.minSips}} min</span>
-  <input type="range" class="settingsRange" id="maxSipsInput" min="1" max="12" [(ngModel)]="config.maxSips"><span class="settingsLable">{{config.maxSips}} max</span>
+  <input type="range" class="settingsRange" id="minSipsInput" min="1" max="12" [(ngModel)]="config.minSips" (change)="configUpdate()"><span class="settingsLable">{{config.minSips}} min</span>
+  <input type="range" class="settingsRange" id="maxSipsInput" min="1" max="12" [(ngModel)]="config.maxSips" (change)="configUpdate()"><span class="settingsLable">{{config.maxSips}} max</span>
   <div class="close" (click)="openMenu('settings', false)"></div>
 </div>

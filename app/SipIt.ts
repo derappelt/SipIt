@@ -29,8 +29,6 @@ export class SipIt implements SipItConfig{
 
   }
   diceSips() {
-    this.config.minSips = parseInt(`${this.config.minSips}`);
-    this.config.maxSips = parseInt(`${this.config.maxSips}`);
     return Math.floor(Math.random() * (this.config.maxSips + 1 - this.config.minSips)) + this.config.minSips;
   }
   dicePlayer() {
@@ -98,6 +96,10 @@ export class SipIt implements SipItConfig{
     } else {
       document.querySelector('.' + menu + 'Menu').style.display = 'block';
     }
+  }
+  configUpdate(){
+    this.config.minSips = parseInt(`${this.config.minSips}`);
+    this.config.maxSips = parseInt(`${this.config.maxSips}`);
   }
 }
 
