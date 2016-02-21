@@ -2,7 +2,7 @@ import {bootstrap} from 'angular2/platform/browser';
 import {Component} from 'angular2/core';
 import {Player} from './Player';
 import {PlayersService} from './PlayersService';
-import {SipItConfig} from './SipItConfig';
+import {ConfigService} from './ConfigService';
 import {PlayersMenu} from './PlayersMenu';
 
 
@@ -11,11 +11,11 @@ import {PlayersMenu} from './PlayersMenu';
   directives: [PlayersMenu],
   templateUrl: 'app/SipIt.html'
 })
-export class SipIt implements SipItConfig{
+export class SipIt{
   config : any;
   lastPlayer: Player;
   output: String;
-  constructor(private playersService: PlayersService) {
+  constructor(private playersService: PlayersService, private configService: ConfigService) {
     this.config = {
       minSips: 1,
       maxSips: 3,
@@ -83,4 +83,4 @@ export class SipIt implements SipItConfig{
   }
 }
 
-bootstrap(SipIt, [PlayersService]);
+bootstrap(SipIt, [PlayersService, ConfigService]);
