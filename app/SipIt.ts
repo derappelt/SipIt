@@ -1,38 +1,32 @@
 import {bootstrap} from 'angular2/platform/browser';
 import {Component} from 'angular2/core';
 import {Player} from './Player';
+import {PlayersService} from './PlayersService';
 import {SipItConfig} from './SipItConfig';
+import {PlayersMenu} from './PlayersMenu';
+
 
 @Component({
   selector: 'sipIt',
+  directives: [PlayersMenu],
   templateUrl: 'app/SipIt.html'
 })
 export class SipIt implements SipItConfig{
   config : any;
   lastPlayer: Player;
-  players: Player[];
   output: String;
-  constructor() {
+  constructor(private playersService: PlayersService) {
     this.config = {
       minSips: 1,
       maxSips: 3,
       drinkOrDeal: "both"
     };
-    if (localStorage.getItem('players')) {
-      this.players = JSON.parse(localStorage.getItem('players'));
-    } else {
-      this.players = [];
-      this.addPlayer(new Player('Claudi'));
-      this.addPlayer(new Player('Chris'));
-      this.addPlayer(new Player('Simon'));
-    }
-
   }
   diceSips() {
     return Math.floor(Math.random() * (this.config.maxSips + 1 - this.config.minSips)) + this.config.minSips;
   }
   dicePlayer() {
-    return this.players[Math.floor(Math.random() * this.players.length)];
+    return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
   }
   rollTheDice(e) {
     if (e)
@@ -43,8 +37,8 @@ export class SipIt implements SipItConfig{
     if (this.lastPlayer === player) {
       player.multi++;
     } else {
-      for (var i = 0; i < this.players.length; i++) {
-        this.players[i].multi = 1;
+      for (var i = 0; i < this.playersService.players.length; i++) {
+        this.playersService.players[i].multi = 1;
       }
     }
     this.lastPlayer = player;
@@ -76,20 +70,6 @@ export class SipIt implements SipItConfig{
     }
     return drinkOrDeal;
   }
-  addPlayer(player) {
-    if (player) {
-      this.players.push(player);
-    } else {
-      var name: string = document.getElementById('nameInput').value || 'Name';
-      document.getElementById('nameInput').value = '';
-      this.players.push(new Player(name));
-    }
-    localStorage.setItem('players', JSON.stringify(this.players));
-  }
-  removePlayer(index) {
-    this.players.splice(index, 1);
-    localStorage.setItem('players', JSON.stringify(this.players));
-  }
   openMenu(menu, open) {
     if (open === false) {
       document.querySelector('.' + menu + 'Menu').style.display = 'none';
@@ -103,4 +83,4 @@ export class SipIt implements SipItConfig{
   }
 }
 
-bootstrap(SipIt);
+bootstrap(SipIt, [PlayersService]);

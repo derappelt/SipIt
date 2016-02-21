@@ -4,17 +4,7 @@
 <div class="playersMenuBtn" (click)="openMenu('players', true)"></div>
 <div class="settingsMenuBtn" (click)="openMenu('settings', true)"></div>
 
-<div class="playersMenu menu">
-  <h2>Spieler</h2>
-  <ul id="players" class="players">
-    <li *ngFor="#player of players; #i = index" class="player">
-      {{player.name}}
-      <span class="delete" (click)="removePlayer(i)">Löschen</span>
-    </li>
-  </ul>
-  <input type="text" placeholder="Name" class="nameInput" id="nameInput"><div class="addBtn" (click)="addPlayer()"></div>
-  <div class="close" (click)="openMenu('players', false)"></div>
-</div>
+<playersMenu></playersMenu>
 
 <div class="settingsMenu menu">
   <h2>Einstellungen</h2>
