@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Inject} from 'angular2/core';
 import {PlayersService} from './PlayersService';
 
 @Component({
@@ -7,7 +7,7 @@ import {PlayersService} from './PlayersService';
 })
 
 export class PlayersMenu {
-  constructor(public playersService: PlayersService) { }
+  constructor(@Inject(PlayersService) private playersService:PlayersService) { }
   close(){
     document.querySelector('.playersMenu').style.display = 'none';
   }
