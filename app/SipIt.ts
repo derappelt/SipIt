@@ -1,10 +1,9 @@
 import {bootstrap} from 'angular2/platform/browser';
-import {Component} from 'angular2/core';
+import {Component, Inject} from 'angular2/core';
 import {Player} from './Player';
 import {PlayersService} from './PlayersService';
 import {ConfigService} from './ConfigService';
 import {PlayersMenu} from './PlayersMenu';
-
 
 @Component({
   selector: 'sipIt',
@@ -14,7 +13,7 @@ import {PlayersMenu} from './PlayersMenu';
 export class SipIt{
   lastPlayer: Player;
   output: string;
-  constructor(private playersService: PlayersService, private configService: ConfigService) {
+  constructor(@Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
   }
   diceSips() {
     return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;

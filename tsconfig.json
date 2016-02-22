@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true
+  },
+  "files": [
+    "./app/ConfigService.ts",
+    "./app/Player.ts",
+    "./app/PlayersMenu.ts",
+    "./app/PlayersService.ts",
+    "./app/SipIt.ts"
+  ]
+}
