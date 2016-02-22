@@ -12,7 +12,6 @@ export class ConfigService {
       this.minSips = config.minSips;
       this.maxSips = config.maxSips;
       this.drinkOrDeal = config.drinkOrDeal;
-      console.log(config);
     } else {
       this.minSips = 1;
       this.maxSips = 3;

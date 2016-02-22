@@ -13,7 +13,7 @@ import {PlayersMenu} from './PlayersMenu';
 })
 export class SipIt{
   lastPlayer: Player;
-  output: String;
+  output: string;
   constructor(private playersService: PlayersService, private configService: ConfigService) {
   }
   diceSips() {
@@ -37,10 +37,9 @@ export class SipIt{
     }
     this.lastPlayer = player;
     this.output = this.generateOutput(player, drinkOrDeal, sips);
-    var msg = new SpeechSynthesisUtterance(this.output.replace(' 1 ', ' ein '));
-    window.speechSynthesis.speak(msg);
+    this.speechOutput(this.output);
   }
-  generateOutput(player, drinkOrDeal, sips): String {
+  generateOutput(player, drinkOrDeal, sips): string {
     if (player.multi === 1) {
       if (sips === 1) {
         return `${player.name} ${drinkOrDeal} ${sips} Schluck!`;
@@ -51,8 +50,11 @@ export class SipIt{
       return `${player.name} ${drinkOrDeal} ${sips} mal ${player.multi} Schlücke wegen Multiplikator x${player.multi}`;
     }
   }
-  drinkOrDeal(): String {
-    var drinkOrDeal: String;
+  speechOutput(msg: string){
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(msg.replace(' 1 ', ' ein ')));
+  }
+  drinkOrDeal(): string {
+    var drinkOrDeal: string;
     if (this.configService.drinkOrDeal === "both") {
       if (Math.floor(Math.random() * 2) === 0) {
         drinkOrDeal = `trinkt`;
