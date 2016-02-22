@@ -4,16 +4,21 @@ import {Player} from './Player';
 import {PlayersService} from './PlayersService';
 import {ConfigService} from './ConfigService';
 import {PlayersMenu} from './PlayersMenu';
+import {ConfigMenu} from './ConfigMenu';
 
 @Component({
   selector: 'sipIt',
-  directives: [PlayersMenu],
+  directives: [PlayersMenu, ConfigMenu],
   templateUrl: 'app/SipIt.html'
 })
 export class SipIt{
   lastPlayer: Player;
   output: string;
   constructor(@Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
+    var tmp = this;
+    document.addEventListener('keyup',function(e) {
+      tmp.keyup(e);
+    });
   }
   diceSips() {
     return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -64,6 +69,11 @@ export class SipIt{
       drinkOrDeal = this.configService.drinkOrDeal;
     }
     return drinkOrDeal;
+  }
+  keyup(e){
+    if (e.keyCode === 32) {
+      this.rollTheDice();
+    }
   }
   openMenu(menu, open) {
     if (open === false) {

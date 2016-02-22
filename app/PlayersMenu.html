@@ -6,6 +6,8 @@
       <span class="delete" (click)="playersService.removePlayer(i)">Löschen</span>
     </li>
   </ul>
-  <input type="text" placeholder="Name" class="nameInput" id="nameInput"><div class="addBtn" (click)="playersService.addPlayer()"></div>
+  <form (submit)="playersService.addPlayer()">
+    <input type="text" placeholder="Name" class="nameInput" id="nameInput"><div class="addBtn" (click)="playersService.addPlayer()"></div>
+  </form>
   <div class="close" (click)="close()"></div>
 </div>
