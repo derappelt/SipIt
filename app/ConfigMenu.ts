@@ -10,6 +10,6 @@ export class ConfigMenu {
 
   constructor(@Inject(ConfigService) private configService:ConfigService) { }
   close(){
-    document.querySelector('.settingsMenu').style.display = 'none';
+    document.querySelector('configMenu').style.display = 'none';
   }
 }

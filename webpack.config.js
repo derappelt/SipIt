@@ -2,7 +2,7 @@ module.exports = {
   entry: './app/SipIt.ts',
   output: {
     path: __dirname,
-    filename: "bundle.js"
+    filename: "./dist/bundle.js"
   },
   resolve: {
     extensions: ['', '.js', '.ts']

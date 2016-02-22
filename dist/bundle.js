@@ -44,7 +44,6 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	///<reference path='lib/lib.d.ts' />
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,10 +61,15 @@
 	var PlayersService_1 = __webpack_require__(221);
 	var ConfigService_1 = __webpack_require__(223);
 	var PlayersMenu_1 = __webpack_require__(224);
+	var ConfigMenu_1 = __webpack_require__(225);
 	var SipIt = (function () {
 	    function SipIt(playersService, configService) {
 	        this.playersService = playersService;
 	        this.configService = configService;
+	        var tmp = this;
+	        document.addEventListener('keyup', function (e) {
+	            tmp.keyup(e);
+	        });
 	    }
 	    SipIt.prototype.diceSips = function () {
 	        return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -122,6 +126,11 @@
 	        }
 	        return drinkOrDeal;
 	    };
+	    SipIt.prototype.keyup = function (e) {
+	        if (e.keyCode === 32) {
+	            this.rollTheDice();
+	        }
+	    };
 	    SipIt.prototype.openMenu = function (menu, open) {
 	        if (open === false) {
 	            document.querySelector('.' + menu + 'Menu').style.display = 'none';
@@ -133,7 +142,7 @@
 	    SipIt = __decorate([
 	        core_1.Component({
 	            selector: 'sipIt',
-	            directives: [PlayersMenu_1.PlayersMenu],
+	            directives: [PlayersMenu_1.PlayersMenu, ConfigMenu_1.ConfigMenu],
 	            templateUrl: 'app/SipIt.html'
 	        }),
 	        __param(0, core_1.Inject(PlayersService_1.PlayersService)),
@@ -31038,6 +31047,44 @@
 	    return PlayersMenu;
 	})();
 	exports.PlayersMenu = PlayersMenu;
+
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(22);
+	var ConfigService_1 = __webpack_require__(223);
+	var ConfigMenu = (function () {
+	    function ConfigMenu(configService) {
+	        this.configService = configService;
+	    }
+	    ConfigMenu.prototype.close = function () {
+	        document.querySelector('.settingsMenu').style.display = 'none';
+	    };
+	    ConfigMenu = __decorate([
+	        core_1.Component({
+	            selector: 'configMenu',
+	            templateUrl: 'app/ConfigMenu.html'
+	        }),
+	        __param(0, core_1.Inject(ConfigService_1.ConfigService)), 
+	        __metadata('design:paramtypes', [ConfigService_1.ConfigService])
+	    ], ConfigMenu);
+	    return ConfigMenu;
+	})();
+	exports.ConfigMenu = ConfigMenu;
 
 
 /***/ }

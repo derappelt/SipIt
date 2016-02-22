@@ -9,6 +9,6 @@ import {PlayersService} from './PlayersService';
 export class PlayersMenu {
   constructor(@Inject(PlayersService) private playersService:PlayersService) { }
   close(){
-    document.querySelector('.playersMenu').style.display = 'none';
+    document.querySelector('playersMenu').style.display = 'none';
   }
 }

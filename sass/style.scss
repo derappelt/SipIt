@@ -29,7 +29,7 @@ sipit{
   text-align: center;
   padding: 30px;
 }
-.menu{
+playersmenu, configmenu{
   box-shadow: 0px 0px 50px #000;
   background-color: #fff;
   width: 90vw;
@@ -53,7 +53,7 @@ sipit{
     margin: 0;
   }
 }
-.playersMenu{
+playersmenu{
   ul.players{
     list-style: none;
     margin: 0;

@@ -77,9 +77,9 @@ export class SipIt{
   }
   openMenu(menu, open) {
     if (open === false) {
-      document.querySelector('.' + menu + 'Menu').style.display = 'none';
+      document.querySelector(menu + 'menu').style.display = 'none';
     } else {
-      document.querySelector('.' + menu + 'Menu').style.display = 'block';
+      document.querySelector(menu + 'menu').style.display = 'block';
     }
   }
 }
