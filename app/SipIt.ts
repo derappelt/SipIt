@@ -15,10 +15,7 @@ export class SipIt{
   lastPlayer: Player;
   output: string;
   constructor(@Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
-    var tmp = this;
-    document.addEventListener('keyup',function(e) {
-      tmp.keyup(e);
-    });
+    document.addEventListener('keyup',(e) => this.keyup(e));
   }
   diceSips() {
     return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
