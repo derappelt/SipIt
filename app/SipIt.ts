@@ -12,18 +12,12 @@ import {PlayersMenu} from './PlayersMenu';
   templateUrl: 'app/SipIt.html'
 })
 export class SipIt{
-  config : any;
   lastPlayer: Player;
   output: String;
   constructor(private playersService: PlayersService, private configService: ConfigService) {
-    this.config = {
-      minSips: 1,
-      maxSips: 3,
-      drinkOrDeal: "both"
-    };
   }
   diceSips() {
-    return Math.floor(Math.random() * (this.config.maxSips + 1 - this.config.minSips)) + this.config.minSips;
+    return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
   }
   dicePlayer() {
     return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
@@ -59,14 +53,14 @@ export class SipIt{
   }
   drinkOrDeal(): String {
     var drinkOrDeal: String;
-    if (this.config.drinkOrDeal === "both") {
+    if (this.configService.drinkOrDeal === "both") {
       if (Math.floor(Math.random() * 2) === 0) {
         drinkOrDeal = `trinkt`;
       } else {
         drinkOrDeal = `verteilt`;
       }
     } else {
-      drinkOrDeal = this.config.drinkOrDeal;
+      drinkOrDeal = this.configService.drinkOrDeal;
     }
     return drinkOrDeal;
   }
@@ -76,10 +70,6 @@ export class SipIt{
     } else {
       document.querySelector('.' + menu + 'Menu').style.display = 'block';
     }
-  }
-  configUpdate(){
-    this.config.minSips = parseInt(`${this.config.minSips}`);
-    this.config.maxSips = parseInt(`${this.config.maxSips}`);
   }
 }
 
