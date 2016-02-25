@@ -117,6 +117,34 @@ playersmenu{
   background: url(../img/gears.png) no-repeat center center;
   background-size: 60px;
 }
+.autoPlayBtn{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 80px;
+  height: 80px;
+  &.play{
+    background: url(../img/play.png) no-repeat center center;
+    background-size: 30px;
+  }
+  &.pause{
+    background: url(../img/pause.png) no-repeat center center;
+    background-size: 30px;
+  }
+}
+.autoPlayTimeLable {
+    width: 120px;
+    position: absolute;
+    bottom: 32px;
+    right: 80px;
+    text-align: center;
+}
+.autoPlayTimeRange {
+    position: absolute;
+    bottom: 32px;
+    right: 200px;
+    width: calc(100vw - 300px);
+}
 .settingsRange{
   width: calc(100% - 100px);
 }

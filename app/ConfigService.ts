@@ -5,6 +5,7 @@ export class ConfigService {
   minSips: number;
   maxSips: number;  
   drinkOrDeal: string;
+  autoPlayTime: number;
   
   constructor() {
     var config = JSON.parse(localStorage.getItem('config'));
@@ -12,11 +13,13 @@ export class ConfigService {
       this.minSips = config.minSips;
       this.maxSips = config.maxSips;
       this.drinkOrDeal = config.drinkOrDeal;
+      this.autoPlayTime = config.autoPlayTime;
     } else {
       this.minSips = 1;
       this.maxSips = 3;
       this.drinkOrDeal = 'both';
-      localStorage.setItem('config', JSON.stringify(this));
+      this.autoPlayTime = 5000;
+      this.update();
     }
   }
   update(){

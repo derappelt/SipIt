@@ -3,6 +3,8 @@
 </div>
 <div class="playersMenuBtn" (click)="openMenu('players', true)"></div>
 <div class="settingsMenuBtn" (click)="openMenu('config', true)"></div>
+<div class="autoPlayBtn" [ngClass]="autoPlay" (click)="toggleAutoPlay()"></div>
+<input type="range" class="autoPlayTimeRange" min="2000" max="20000" step="1000" [(ngModel)]="configService.autoPlayTime" (change)="autoPlayTimeUpdate()"><span class="autoPlayTimeLable">{{configService.autoPlayTime/1000}} Sekunden</span>
 
 <playersMenu></playersMenu>
 <configMenu></configMenu>
