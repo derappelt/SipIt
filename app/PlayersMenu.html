@@ -1,11 +1,12 @@
-<div class="playersMenu menu">
-  <h2>Spieler</h2>
-  <ul id="players" class="players">
-    <li *ngFor="#player of playersService.players; #i = index" class="player">
-      {{player.name}}
-      <span class="delete" (click)="playersService.removePlayer(i)">Löschen</span>
-    </li>
-  </ul>
-  <input type="text" placeholder="Name" class="nameInput" id="nameInput"><div class="addBtn" (click)="playersService.addPlayer()"></div>
-  <div class="close" (click)="close()"></div>
-</div>
+<h2>Spieler</h2>
+<ul id="players" class="players">
+  <li *ngFor="#player of playersService.players; #i = index" class="player">
+    {{player.name}}
+    <span class="delete" (click)="playersService.removePlayer(i)">Löschen</span>
+  </li>
+</ul>
+<form (submit)="playersService.addPlayer()">
+  <input type="text" placeholder="Name" class="nameInput" id="nameInput">
+  <div class="addBtn" (click)="playersService.addPlayer()"></div>
+</form>
+<div class="close" (click)="close()"></div>

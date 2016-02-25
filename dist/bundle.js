@@ -44,6 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	///<reference path="../node_modules/angular2/typings/browser.d.ts"/> 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61,10 +62,14 @@
 	var PlayersService_1 = __webpack_require__(221);
 	var ConfigService_1 = __webpack_require__(223);
 	var PlayersMenu_1 = __webpack_require__(224);
+	var ConfigMenu_1 = __webpack_require__(225);
 	var SipIt = (function () {
 	    function SipIt(playersService, configService) {
+	        var _this = this;
 	        this.playersService = playersService;
 	        this.configService = configService;
+	        this.autoPlay = 'play';
+	        document.addEventListener('keyup', function (e) { return _this.keyup(e); });
 	    }
 	    SipIt.prototype.diceSips = function () {
 	        return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -121,18 +126,42 @@
 	        }
 	        return drinkOrDeal;
 	    };
-	    SipIt.prototype.openMenu = function (menu, open) {
-	        if (open === false) {
-	            document.querySelector('.' + menu + 'Menu').style.display = 'none';
+	    SipIt.prototype.toggleAutoPlay = function () {
+	        var _this = this;
+	        if (this.autoPlay === 'play') {
+	            this.autoPlayInterval = setInterval(function () { _this.rollTheDice(); }, this.configService.autoPlayTime);
+	            this.autoPlay = 'pause';
 	        }
 	        else {
-	            document.querySelector('.' + menu + 'Menu').style.display = 'block';
+	            clearInterval(this.autoPlayInterval);
+	            this.autoPlay = 'play';
+	        }
+	    };
+	    SipIt.prototype.autoPlayTimeUpdate = function () {
+	        var _this = this;
+	        if (this.autoPlay === 'pause') {
+	            clearInterval(this.autoPlayInterval);
+	            this.autoPlayInterval = setInterval(function () { _this.rollTheDice(); }, this.configService.autoPlayTime);
+	        }
+	    };
+	    SipIt.prototype.keyup = function (e) {
+	        if (e.keyCode === 32) {
+	            this.rollTheDice();
+	        }
+	    };
+	    SipIt.prototype.openMenu = function (menu, open) {
+	        var menuElement = document.querySelector(menu + 'menu');
+	        if (open === false) {
+	            menuElement.style.display = 'none';
+	        }
+	        else {
+	            menuElement.style.display = 'block';
 	        }
 	    };
 	    SipIt = __decorate([
 	        core_1.Component({
 	            selector: 'sipIt',
-	            directives: [PlayersMenu_1.PlayersMenu],
+	            directives: [PlayersMenu_1.PlayersMenu, ConfigMenu_1.ConfigMenu],
 	            templateUrl: 'app/SipIt.html'
 	        }),
 	        __param(0, core_1.Inject(PlayersService_1.PlayersService)),
@@ -30979,12 +31008,14 @@
 	            this.minSips = config.minSips;
 	            this.maxSips = config.maxSips;
 	            this.drinkOrDeal = config.drinkOrDeal;
+	            this.autoPlayTime = config.autoPlayTime;
 	        }
 	        else {
 	            this.minSips = 1;
 	            this.maxSips = 3;
 	            this.drinkOrDeal = 'both';
-	            localStorage.setItem('config', JSON.stringify(this));
+	            this.autoPlayTime = 5000;
+	            this.update();
 	        }
 	    }
 	    ConfigService.prototype.update = function () {
@@ -31024,7 +31055,8 @@
 	        this.playersService = playersService;
 	    }
 	    PlayersMenu.prototype.close = function () {
-	        document.querySelector('.playersMenu').style.display = 'none';
+	        var playersMenuElement = document.querySelector('playersMenu');
+	        playersMenuElement.style.display = 'none';
 	    };
 	    PlayersMenu = __decorate([
 	        core_1.Component({
@@ -31037,6 +31069,45 @@
 	    return PlayersMenu;
 	})();
 	exports.PlayersMenu = PlayersMenu;
+
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(22);
+	var ConfigService_1 = __webpack_require__(223);
+	var ConfigMenu = (function () {
+	    function ConfigMenu(configService) {
+	        this.configService = configService;
+	    }
+	    ConfigMenu.prototype.close = function () {
+	        var configMenuElement = document.querySelector('configMenu');
+	        configMenuElement.style.display = 'none';
+	    };
+	    ConfigMenu = __decorate([
+	        core_1.Component({
+	            selector: 'configMenu',
+	            templateUrl: 'app/ConfigMenu.html'
+	        }),
+	        __param(0, core_1.Inject(ConfigService_1.ConfigService)), 
+	        __metadata('design:paramtypes', [ConfigService_1.ConfigService])
+	    ], ConfigMenu);
+	    return ConfigMenu;
+	})();
+	exports.ConfigMenu = ConfigMenu;
 
 
 /***/ }

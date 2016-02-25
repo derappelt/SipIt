@@ -1,0 +1,144 @@
+* {
+  box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Josefin Sans', sans-serif; }
+
+sipit {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.sipit {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.output {
+  font-size: 40px;
+  text-align: center;
+  padding: 30px; }
+
+playersmenu, configmenu {
+  box-shadow: 0px 0px 50px #000;
+  background-color: #fff;
+  width: 90vw;
+  height: 90vh;
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+  padding: 30px;
+  font-size: 20px;
+  line-height: 40px;
+  display: none; }
+  playersmenu .close, configmenu .close {
+    background: url(../img/close.png) no-repeat center center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 40px;
+    width: 40px; }
+  playersmenu h2, configmenu h2 {
+    margin: 0; }
+
+playersmenu ul.players {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 65px;
+  bottom: 70px;
+  overflow: auto; }
+  playersmenu ul.players li.player {
+    font-weight: bold;
+    padding: 0 10px;
+    border-bottom: 1px solid black; }
+    playersmenu ul.players li.player .delete {
+      float: right; }
+  playersmenu ul.players li.player:last-child {
+    border-bottom: none; }
+
+playersmenu .nameInput {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  width: calc(100% - 100px);
+  height: 40px;
+  border: 0;
+  font-size: 20px;
+  border-bottom: 1px solid darkgray;
+  outline: none; }
+
+playersmenu .nameInput:focus {
+  border-bottom: 1px solid black; }
+
+playersmenu .addBtn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  background: url(../img/add.png) no-repeat center center; }
+
+.playersMenuBtn {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 80px;
+  height: 80px;
+  background: url(../img/people.png) no-repeat center center;
+  background-size: 60px; }
+
+.settingsMenuBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 80px;
+  height: 80px;
+  background: url(../img/gears.png) no-repeat center center;
+  background-size: 60px; }
+
+.autoPlayBtn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 80px;
+  height: 80px; }
+  .autoPlayBtn.play {
+    background: url(../img/play.png) no-repeat center center;
+    background-size: 30px; }
+  .autoPlayBtn.pause {
+    background: url(../img/pause.png) no-repeat center center;
+    background-size: 30px; }
+
+.autoPlayTimeLable {
+  width: 120px;
+  position: absolute;
+  bottom: 32px;
+  right: 80px;
+  text-align: center; }
+
+.autoPlayTimeRange {
+  position: absolute;
+  bottom: 32px;
+  right: 200px;
+  width: calc(100vw - 300px); }
+
+.settingsRange {
+  width: calc(100% - 100px); }
+
+.settingsLable {
+  float: right;
+  font-size: 30px; }

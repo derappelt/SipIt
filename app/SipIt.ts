@@ -1,19 +1,26 @@
+///<reference path="../node_modules/angular2/typings/browser.d.ts"/> 
+
 import {bootstrap} from 'angular2/platform/browser';
 import {Component, Inject} from 'angular2/core';
 import {Player} from './Player';
 import {PlayersService} from './PlayersService';
 import {ConfigService} from './ConfigService';
 import {PlayersMenu} from './PlayersMenu';
+import {ConfigMenu} from './ConfigMenu';
 
 @Component({
   selector: 'sipIt',
-  directives: [PlayersMenu],
+  directives: [PlayersMenu, ConfigMenu],
   templateUrl: 'app/SipIt.html'
 })
 export class SipIt{
   lastPlayer: Player;
   output: string;
+  autoPlayInterval: number;
+  autoPlay: string = 'play';
+  
   constructor(@Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
+    document.addEventListener('keyup',(e) => this.keyup(e));
   }
   diceSips() {
     return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -21,7 +28,7 @@ export class SipIt{
   dicePlayer() {
     return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
   }
-  rollTheDice(e) {
+  rollTheDice(e?) {
     if (e)
       e.preventDefault();
     var sips = this.diceSips();
@@ -65,11 +72,32 @@ export class SipIt{
     }
     return drinkOrDeal;
   }
-  openMenu(menu, open) {
-    if (open === false) {
-      document.querySelector('.' + menu + 'Menu').style.display = 'none';
+  toggleAutoPlay(){
+    if (this.autoPlay === 'play') {
+      this.autoPlayInterval = setInterval(()=>{this.rollTheDice();}, this.configService.autoPlayTime);
+      this.autoPlay = 'pause';
     } else {
-      document.querySelector('.' + menu + 'Menu').style.display = 'block';
+      clearInterval(this.autoPlayInterval);
+      this.autoPlay = 'play';
+    }
+  }
+  autoPlayTimeUpdate(){
+    if (this.autoPlay === 'pause') {
+      clearInterval(this.autoPlayInterval);
+      this.autoPlayInterval = setInterval(()=>{this.rollTheDice();}, this.configService.autoPlayTime);
+    }
+  }
+  keyup(e){
+    if (e.keyCode === 32) {
+      this.rollTheDice();
+    }
+  }
+  openMenu(menu, open) {
+    let menuElement = <HTMLElement>document.querySelector(menu + 'menu');
+    if (open === false) {
+      menuElement.style.display = 'none';
+    } else {
+      menuElement.style.display = 'block';
     }
   }
 }

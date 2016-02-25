@@ -1,0 +1,4 @@
+<h2>Einstellungen</h2>
+<input type="range" class="settingsRange" id="minSipsInput" min="1" max="12" [(ngModel)]="configService.minSips" (change)="configService.update()"><span class="settingsLable">{{configService.minSips}} min</span>
+<input type="range" class="settingsRange" id="maxSipsInput" min="1" max="12" [(ngModel)]="configService.maxSips" (change)="configService.update()"><span class="settingsLable">{{configService.maxSips}} max</span>
+<div class="close" (click)="close()"></div>

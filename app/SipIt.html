@@ -1,14 +1,10 @@
-<div class="sipit" (click)="rollTheDice($event)">
+<div class="sipit" (click)="rollTheDice($event)" (keyup)="keyup($event)">
   <div id="output" class="output">{{output}}</div>
 </div>
 <div class="playersMenuBtn" (click)="openMenu('players', true)"></div>
-<div class="settingsMenuBtn" (click)="openMenu('settings', true)"></div>
+<div class="settingsMenuBtn" (click)="openMenu('config', true)"></div>
+<div class="autoPlayBtn" [ngClass]="autoPlay" (click)="toggleAutoPlay()"></div>
+<input type="range" class="autoPlayTimeRange" min="2000" max="20000" step="1000" [(ngModel)]="configService.autoPlayTime" (change)="autoPlayTimeUpdate()"><span class="autoPlayTimeLable">{{configService.autoPlayTime/1000}} Sekunden</span>
 
 <playersMenu></playersMenu>
-
-<div class="settingsMenu menu">
-  <h2>Einstellungen</h2>
-  <input type="range" class="settingsRange" id="minSipsInput" min="1" max="12" [(ngModel)]="configService.minSips" (change)="configService.update()"><span class="settingsLable">{{configService.minSips}} min</span>
-  <input type="range" class="settingsRange" id="maxSipsInput" min="1" max="12" [(ngModel)]="configService.maxSips" (change)="configService.update()"><span class="settingsLable">{{configService.maxSips}} max</span>
-  <div class="close" (click)="openMenu('settings', false)"></div>
-</div>
+<configMenu></configMenu>
