@@ -44,6 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	///<reference path="../node_modules/angular2/typings/browser.d.ts"/> 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,12 +65,11 @@
 	var ConfigMenu_1 = __webpack_require__(225);
 	var SipIt = (function () {
 	    function SipIt(playersService, configService) {
+	        var _this = this;
 	        this.playersService = playersService;
 	        this.configService = configService;
-	        var tmp = this;
-	        document.addEventListener('keyup', function (e) {
-	            tmp.keyup(e);
-	        });
+	        this.autoPlay = 'play';
+	        document.addEventListener('keyup', function (e) { return _this.keyup(e); });
 	    }
 	    SipIt.prototype.diceSips = function () {
 	        return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -126,17 +126,36 @@
 	        }
 	        return drinkOrDeal;
 	    };
+	    SipIt.prototype.toggleAutoPlay = function () {
+	        var _this = this;
+	        if (this.autoPlay === 'play') {
+	            this.autoPlayInterval = setInterval(function () { _this.rollTheDice(); }, this.configService.autoPlayTime);
+	            this.autoPlay = 'pause';
+	        }
+	        else {
+	            clearInterval(this.autoPlayInterval);
+	            this.autoPlay = 'play';
+	        }
+	    };
+	    SipIt.prototype.autoPlayTimeUpdate = function () {
+	        var _this = this;
+	        if (this.autoPlay === 'pause') {
+	            clearInterval(this.autoPlayInterval);
+	            this.autoPlayInterval = setInterval(function () { _this.rollTheDice(); }, this.configService.autoPlayTime);
+	        }
+	    };
 	    SipIt.prototype.keyup = function (e) {
 	        if (e.keyCode === 32) {
 	            this.rollTheDice();
 	        }
 	    };
 	    SipIt.prototype.openMenu = function (menu, open) {
+	        var menuElement = document.querySelector(menu + 'menu');
 	        if (open === false) {
-	            document.querySelector('.' + menu + 'Menu').style.display = 'none';
+	            menuElement.style.display = 'none';
 	        }
 	        else {
-	            document.querySelector('.' + menu + 'Menu').style.display = 'block';
+	            menuElement.style.display = 'block';
 	        }
 	    };
 	    SipIt = __decorate([
@@ -30989,12 +31008,14 @@
 	            this.minSips = config.minSips;
 	            this.maxSips = config.maxSips;
 	            this.drinkOrDeal = config.drinkOrDeal;
+	            this.autoPlayTime = config.autoPlayTime;
 	        }
 	        else {
 	            this.minSips = 1;
 	            this.maxSips = 3;
 	            this.drinkOrDeal = 'both';
-	            localStorage.setItem('config', JSON.stringify(this));
+	            this.autoPlayTime = 5000;
+	            this.update();
 	        }
 	    }
 	    ConfigService.prototype.update = function () {
@@ -31034,7 +31055,8 @@
 	        this.playersService = playersService;
 	    }
 	    PlayersMenu.prototype.close = function () {
-	        document.querySelector('.playersMenu').style.display = 'none';
+	        var playersMenuElement = document.querySelector('playersMenu');
+	        playersMenuElement.style.display = 'none';
 	    };
 	    PlayersMenu = __decorate([
 	        core_1.Component({
@@ -31072,7 +31094,8 @@
 	        this.configService = configService;
 	    }
 	    ConfigMenu.prototype.close = function () {
-	        document.querySelector('.settingsMenu').style.display = 'none';
+	        var configMenuElement = document.querySelector('configMenu');
+	        configMenuElement.style.display = 'none';
 	    };
 	    ConfigMenu = __decorate([
 	        core_1.Component({
