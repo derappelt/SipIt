@@ -85,6 +85,7 @@ export class SipIt{
     if (this.autoPlay === 'pause') {
       clearInterval(this.autoPlayInterval);
       this.autoPlayInterval = setInterval(()=>{this.rollTheDice();}, this.configService.autoPlayTime);
+      this.configService.update();
     }
   }
   keyup(e){
