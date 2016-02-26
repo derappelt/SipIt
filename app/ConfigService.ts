@@ -27,5 +27,9 @@ export class ConfigService {
     this.maxSips = parseInt(`${this.maxSips}`);
     localStorage.setItem('config', JSON.stringify(this));
   }
+  reset(){
+    localStorage.removeItem('config');
+    //this.constructor();
+  }
 
 }
