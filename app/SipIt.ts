@@ -31,6 +31,13 @@ export class SipIt{
   rollTheDice(e?) {
     if (e)
       e.preventDefault();
+
+    if (this.autoPlay === 'pause') {
+      clearInterval(this.autoPlayInterval);
+      this.autoPlayInterval = setInterval(()=>{this.rollTheDice();}, this.configService.autoPlayTime);
+      this.configService.update();
+    }
+
     var sips = this.diceSips();
     var player = this.dicePlayer();
     var drinkOrDeal = this.drinkOrDeal();
