@@ -13,101 +13,99 @@ import {ConfigMenu} from './ConfigMenu';
   directives: [PlayersMenu, ConfigMenu],
   templateUrl: 'app/SipIt.html'
 })
-export class SipIt{
+export class SipIt {
   lastPlayer: Player;
   output: string;
   autoPlayInterval: number;
   autoPlay: string = 'play';
-  
-  constructor(@Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
-    document.addEventListener('keyup',(e) => this.keyup(e));
-  }
-  diceSips() {
-    return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
-  }
-  dicePlayer() {
-    return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
-  }
-  rollTheDice(e?) {
-    if (e)
-      e.preventDefault();
 
-    if (this.autoPlay === 'pause') {
-      clearInterval(this.autoPlayInterval);
-      this.autoPlayInterval = setInterval(()=>{this.rollTheDice();}, this.configService.autoPlayTime);
-      this.configService.update();
+  constructor( @Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
+    document.addEventListener('keyup', (e) => this.keyup(e));
+  }
+diceSips() {
+  return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
+}
+dicePlayer() {
+  return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
+}
+rollTheDice(e ?) {
+  if (this.autoPlay === 'pause')
+    this.startAutoPlayInterval();
+  if (e)
+    e.preventDefault();
+  var sips = this.diceSips();
+  var player = this.dicePlayer();
+  var drinkOrDeal = this.drinkOrDeal();
+  if (this.lastPlayer === player) {
+    player.multi++;
+  } else {
+    for (var i = 0; i < this.playersService.players.length; i++) {
+      this.playersService.players[i].multi = 1;
     }
-
-    var sips = this.diceSips();
-    var player = this.dicePlayer();
-    var drinkOrDeal = this.drinkOrDeal();
-    if (this.lastPlayer === player) {
-      player.multi++;
+  }
+  this.lastPlayer = player;
+  this.output = this.generateOutput(player, drinkOrDeal, sips);
+  this.speechOutput(this.output);
+}
+generateOutput(player, drinkOrDeal, sips): string {
+  if (player.multi === 1) {
+    if (sips === 1) {
+      return `${player.name} ${drinkOrDeal} ${sips} Schluck!`;
     } else {
-      for (var i = 0; i < this.playersService.players.length; i++) {
-        this.playersService.players[i].multi = 1;
-      }
+      return `${player.name} ${drinkOrDeal} ${sips} Schlücke!`;
     }
-    this.lastPlayer = player;
-    this.output = this.generateOutput(player, drinkOrDeal, sips);
-    this.speechOutput(this.output);
+  } else {
+    return `${player.name} ${drinkOrDeal} ${sips} mal ${player.multi} Schlücke wegen Multiplikator x${player.multi}`;
   }
-  generateOutput(player, drinkOrDeal, sips): string {
-    if (player.multi === 1) {
-      if (sips === 1) {
-        return `${player.name} ${drinkOrDeal} ${sips} Schluck!`;
-      } else {
-        return `${player.name} ${drinkOrDeal} ${sips} Schlücke!`;
-      }
+}
+speechOutput(msg: string){
+  window.speechSynthesis.speak(new SpeechSynthesisUtterance(msg.replace(' 1 ', ' ein ')));
+}
+drinkOrDeal(): string {
+  var drinkOrDeal: string;
+  if (this.configService.drinkOrDeal === "both") {
+    if (Math.floor(Math.random() * 2) === 0) {
+      drinkOrDeal = `trinkt`;
     } else {
-      return `${player.name} ${drinkOrDeal} ${sips} mal ${player.multi} Schlücke wegen Multiplikator x${player.multi}`;
+      drinkOrDeal = `verteilt`;
     }
+  } else {
+    drinkOrDeal = this.configService.drinkOrDeal;
   }
-  speechOutput(msg: string){
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance(msg.replace(' 1 ', ' ein ')));
+  return drinkOrDeal;
+}
+toggleAutoPlay(){
+  if (this.autoPlay === 'play') {
+    this.startAutoPlayInterval();
+    this.autoPlay = 'pause';
+  } else {
+    clearInterval(this.autoPlayInterval);
+    this.autoPlay = 'play';
   }
-  drinkOrDeal(): string {
-    var drinkOrDeal: string;
-    if (this.configService.drinkOrDeal === "both") {
-      if (Math.floor(Math.random() * 2) === 0) {
-        drinkOrDeal = `trinkt`;
-      } else {
-        drinkOrDeal = `verteilt`;
-      }
-    } else {
-      drinkOrDeal = this.configService.drinkOrDeal;
-    }
-    return drinkOrDeal;
+}
+startAutoPlayInterval(){
+  clearInterval(this.autoPlayInterval);
+  this.autoPlayInterval = setInterval(() => { this.rollTheDice(); }, this.configService.autoPlayTime);
+}
+autoPlayTimeUpdate(){
+  if (this.autoPlay === 'pause') {
+    this.startAutoPlayInterval();
   }
-  toggleAutoPlay(){
-    if (this.autoPlay === 'play') {
-      this.autoPlayInterval = setInterval(()=>{this.rollTheDice();}, this.configService.autoPlayTime);
-      this.autoPlay = 'pause';
-    } else {
-      clearInterval(this.autoPlayInterval);
-      this.autoPlay = 'play';
-    }
+  this.configService.update();
+}
+keyup(e){
+  if (e.keyCode === 32) {
+    this.rollTheDice();
   }
-  autoPlayTimeUpdate(){
-    if (this.autoPlay === 'pause') {
-      clearInterval(this.autoPlayInterval);
-      this.autoPlayInterval = setInterval(()=>{this.rollTheDice();}, this.configService.autoPlayTime);
-      this.configService.update();
-    }
+}
+openMenu(menu, open) {
+  let menuElement = <HTMLElement>document.querySelector(menu + 'menu');
+  if (open === false) {
+    menuElement.style.display = 'none';
+  } else {
+    menuElement.style.display = 'block';
   }
-  keyup(e){
-    if (e.keyCode === 32) {
-      this.rollTheDice();
-    }
-  }
-  openMenu(menu, open) {
-    let menuElement = <HTMLElement>document.querySelector(menu + 'menu');
-    if (open === false) {
-      menuElement.style.display = 'none';
-    } else {
-      menuElement.style.display = 'block';
-    }
-  }
+}
 }
 
 bootstrap(SipIt, [PlayersService, ConfigService]);
