@@ -21,7 +21,6 @@ export class SipIt {
 
   constructor( @Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
     document.addEventListener('keyup', (e) => this.keyup(e));
-    setInterval(() => { console.log(this.autoPlayInterval) }, 1000);
   }
 diceSips() {
   return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -30,6 +29,8 @@ dicePlayer() {
   return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
 }
 rollTheDice(e ?) {
+  if (this.autoPlay === 'pause')
+    this.startAutoPlayInterval();
   if (e)
     e.preventDefault();
   var sips = this.diceSips();
@@ -75,19 +76,22 @@ drinkOrDeal(): string {
 }
 toggleAutoPlay(){
   if (this.autoPlay === 'play') {
-    this.autoPlayInterval = setInterval(() => { this.rollTheDice(); }, this.configService.autoPlayTime);
+    this.startAutoPlayInterval();
     this.autoPlay = 'pause';
   } else {
     clearInterval(this.autoPlayInterval);
     this.autoPlay = 'play';
   }
 }
+startAutoPlayInterval(){
+  clearInterval(this.autoPlayInterval);
+  this.autoPlayInterval = setInterval(() => { this.rollTheDice(); }, this.configService.autoPlayTime);
+}
 autoPlayTimeUpdate(){
   if (this.autoPlay === 'pause') {
-    clearInterval(this.autoPlayInterval);
-    this.autoPlayInterval = setInterval(() => { this.rollTheDice(); }, this.configService.autoPlayTime);
-    this.configService.update();
+    this.startAutoPlayInterval();
   }
+  this.configService.update();
 }
 keyup(e){
   if (e.keyCode === 32) {
