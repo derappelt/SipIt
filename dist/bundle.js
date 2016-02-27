@@ -78,6 +78,8 @@
 	        return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
 	    };
 	    SipIt.prototype.rollTheDice = function (e) {
+	        if (this.autoPlay === 'pause')
+	            this.startAutoPlayInterval();
 	        if (e)
 	            e.preventDefault();
 	        var sips = this.diceSips();
@@ -127,9 +129,8 @@
 	        return drinkOrDeal;
 	    };
 	    SipIt.prototype.toggleAutoPlay = function () {
-	        var _this = this;
 	        if (this.autoPlay === 'play') {
-	            this.autoPlayInterval = setInterval(function () { _this.rollTheDice(); }, this.configService.autoPlayTime);
+	            this.startAutoPlayInterval();
 	            this.autoPlay = 'pause';
 	        }
 	        else {
@@ -137,12 +138,16 @@
 	            this.autoPlay = 'play';
 	        }
 	    };
-	    SipIt.prototype.autoPlayTimeUpdate = function () {
+	    SipIt.prototype.startAutoPlayInterval = function () {
 	        var _this = this;
+	        clearInterval(this.autoPlayInterval);
+	        this.autoPlayInterval = setInterval(function () { _this.rollTheDice(); }, this.configService.autoPlayTime);
+	    };
+	    SipIt.prototype.autoPlayTimeUpdate = function () {
 	        if (this.autoPlay === 'pause') {
-	            clearInterval(this.autoPlayInterval);
-	            this.autoPlayInterval = setInterval(function () { _this.rollTheDice(); }, this.configService.autoPlayTime);
+	            this.startAutoPlayInterval();
 	        }
+	        this.configService.update();
 	    };
 	    SipIt.prototype.keyup = function (e) {
 	        if (e.keyCode === 32) {
