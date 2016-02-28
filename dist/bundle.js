@@ -45,6 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+	///<reference path="./speech.d.ts"/>
 	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -155,8 +156,8 @@
 	            this.rollTheDice();
 	        }
 	    };
-	    SipIt.prototype.openMenu = function (menu, open) {
-	        var menuElement = document.querySelector(menu + 'menu');
+	    SipIt.prototype.openMenu = function (selector, open) {
+	        var menuElement = document.querySelector(selector);
 	        if (open === false) {
 	            menuElement.style.display = 'none';
 	        }
@@ -30961,8 +30962,9 @@
 	            this.players.push(player);
 	        }
 	        else {
-	            var name = document.getElementById('nameInput').value || 'Name';
-	            document.getElementById('nameInput').value = '';
+	            var nameInputElement = document.getElementById('nameInput');
+	            var name = nameInputElement.value || 'Name';
+	            nameInputElement.value = '';
 	            this.players.push(new Player_1.Player(name));
 	        }
 	        localStorage.setItem('players', JSON.stringify(this.players));

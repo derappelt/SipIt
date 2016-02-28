@@ -6,7 +6,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "outDir": "lib"
+    "outDir": "lib",
+    "noImplicitAny": true,
+    "noImplicitReturns": true
   },
   "exclude": [
     "node_modules",

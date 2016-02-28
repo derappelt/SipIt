@@ -24,19 +24,19 @@ export class SipIt {
   constructor( @Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
     document.addEventListener('keyup', (e) => this.keyup(e));
   }
-  diceSips() {
+  diceSips(): number {
     return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
   }
-  dicePlayer() {
+  dicePlayer(): Player {
     return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
   }
-  rollTheDice(e ?) {
+  rollTheDice(e?: Event): void {
     if (this.autoPlay === 'pause')
       this.startAutoPlayInterval();
     if (e)
       e.preventDefault();
-    var sips = this.diceSips();
-    var player = this.dicePlayer();
+    let sips = this.diceSips();
+    let player = this.dicePlayer();
     var drinkOrDeal = this.drinkOrDeal();
     if (this.lastPlayer === player) {
       player.multi++;
@@ -49,7 +49,7 @@ export class SipIt {
     this.output = this.generateOutput(player, drinkOrDeal, sips);
     this.speechOutput(this.output);
   }
-  generateOutput(player, drinkOrDeal, sips): string {
+  generateOutput(player: Player, drinkOrDeal: string, sips:number): string {
     if (player.multi === 1) {
       if (sips === 1) {
         return `${player.name} ${drinkOrDeal} ${sips} Schluck!`;
@@ -60,10 +60,10 @@ export class SipIt {
       return `${player.name} ${drinkOrDeal} ${sips} mal ${player.multi} Schlücke wegen Multiplikator x${player.multi}`;
     }
   }
-  speechOutput(msg: string){
+  speechOutput(msg: string): void{
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(msg.replace(' 1 ', ' ein ')));
   }
-  drinkOrDeal(): string {
+  drinkOrDeal(): string{
     var drinkOrDeal: string;
     if (this.configService.drinkOrDeal === "both") {
       if (Math.floor(Math.random() * 2) === 0) {
@@ -76,7 +76,7 @@ export class SipIt {
     }
     return drinkOrDeal;
   }
-  toggleAutoPlay(){
+  toggleAutoPlay(): void{
     if (this.autoPlay === 'play') {
       this.startAutoPlayInterval();
       this.autoPlay = 'pause';
@@ -85,23 +85,23 @@ export class SipIt {
       this.autoPlay = 'play';
     }
   }
-  startAutoPlayInterval(){
+  startAutoPlayInterval(): void{
     clearInterval(this.autoPlayInterval);
     this.autoPlayInterval = setInterval(() => { this.rollTheDice(); }, this.configService.autoPlayTime);
   }
-  autoPlayTimeUpdate(){
+  autoPlayTimeUpdate(): void{
     if (this.autoPlay === 'pause') {
       this.startAutoPlayInterval();
     }
     this.configService.update();
   }
-  keyup(e){
+  keyup(e: KeyboardEvent): void{
     if (e.keyCode === 32) {
       this.rollTheDice();
     }
   }
-  openMenu(menu, open) {
-    let menuElement = <HTMLElement>document.querySelector(menu + 'menu');
+  openMenu(selector: string, open: boolean):void {
+    let menuElement = <HTMLElement>document.querySelector(selector);
     if (open === false) {
       menuElement.style.display = 'none';
     } else {

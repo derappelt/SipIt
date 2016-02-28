@@ -14,7 +14,7 @@ export class PlayersService {
       this.addPlayer(new Player('Simon'));
     }
    }
-  addPlayer(player) {
+  addPlayer(player?: Player): void {
     if (player) {
       this.players.push(player);
     } else {
@@ -25,7 +25,7 @@ export class PlayersService {
     }
     localStorage.setItem('players', JSON.stringify(this.players));
   }
-  removePlayer(index) {
+  removePlayer(index:number): void {
     this.players.splice(index, 1);
     localStorage.setItem('players', JSON.stringify(this.players));
   }
