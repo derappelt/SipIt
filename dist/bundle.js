@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "dist";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -44,7 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	///<reference path="../node_modules/angular2/typings/browser.d.ts"/> 
+	///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -174,7 +175,7 @@
 	        __metadata('design:paramtypes', [PlayersService_1.PlayersService, ConfigService_1.ConfigService])
 	    ], SipIt);
 	    return SipIt;
-	})();
+	}());
 	exports.SipIt = SipIt;
 	browser_1.bootstrap(SipIt, [PlayersService_1.PlayersService, ConfigService_1.ConfigService]);
 
@@ -30931,6 +30932,7 @@
 /* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -30974,7 +30976,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], PlayersService);
 	    return PlayersService;
-	})();
+	}());
 	exports.PlayersService = PlayersService;
 
 
@@ -30982,13 +30984,14 @@
 /* 222 */
 /***/ function(module, exports) {
 
+	"use strict";
 	var Player = (function () {
 	    function Player(name) {
 	        this.multi = 1;
 	        this.name = name;
 	    }
 	    return Player;
-	})();
+	}());
 	exports.Player = Player;
 
 
@@ -30996,6 +30999,7 @@
 /* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -31033,7 +31037,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], ConfigService);
 	    return ConfigService;
-	})();
+	}());
 	exports.ConfigService = ConfigService;
 
 
@@ -31041,6 +31045,7 @@
 /* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -31072,7 +31077,7 @@
 	        __metadata('design:paramtypes', [PlayersService_1.PlayersService])
 	    ], PlayersMenu);
 	    return PlayersMenu;
-	})();
+	}());
 	exports.PlayersMenu = PlayersMenu;
 
 
@@ -31080,6 +31085,7 @@
 /* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -31111,7 +31117,7 @@
 	        __metadata('design:paramtypes', [ConfigService_1.ConfigService])
 	    ], ConfigMenu);
 	    return ConfigMenu;
-	})();
+	}());
 	exports.ConfigMenu = ConfigMenu;
 
 
