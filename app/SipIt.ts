@@ -1,5 +1,8 @@
-///<reference path="../node_modules/angular2/typings/browser.d.ts"/> 
 
+///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+///<reference path="../typings/tsd.d.ts"/>
+
+import { createStore, applyMiddleware, compose } from 'redux';
 import {bootstrap} from 'angular2/platform/browser';
 import {Component, Inject} from 'angular2/core';
 import {Player} from './Player';
@@ -7,6 +10,8 @@ import {PlayersService} from './PlayersService';
 import {ConfigService} from './ConfigService';
 import {PlayersMenu} from './PlayersMenu';
 import {ConfigMenu} from './ConfigMenu';
+
+import DevTools from './DevTools';
 
 @Component({
   selector: 'sipIt',
@@ -107,5 +112,13 @@ openMenu(menu, open) {
   }
 }
 }
+
+function rootReducer(state = [], action) {
+  switch (action.type) {
+  default:
+    return state
+  }
+}
+const store = createStore(rootReducer, [], DevTools.instrument());
 
 bootstrap(SipIt, [PlayersService, ConfigService]);

@@ -5,11 +5,11 @@ module.exports = {
     filename: "./dist/bundle.js"
   },
   resolve: {
-    extensions: ['', '.js', '.ts']
+    extensions: ['', '.js', '.ts', '.tsx']
   },
   module: {
     loaders: [
-      { test: /\.ts$/, loader: 'ts-loader' }
+      { test: /\.tsx?$/, loader: 'ts-loader' }
     ]
   }
 };
