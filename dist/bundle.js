@@ -46,6 +46,7 @@
 
 	///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
 	///<reference path="../typings/tsd.d.ts"/>
+	/// <reference path="../typings/window.d.ts"/>
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -186,7 +187,7 @@
 	    }
 	}
 	var store = redux_1.createStore(rootReducer, [], window.devToolsExtension ? window.devToolsExtension() : undefined);
-	browser_1.bootstrap(SipIt, [PlayersService_1.PlayersService, ConfigService_1.ConfigService]);
+	browser_1.bootstrap(SipIt, [PlayersService_1.PlayersService, ConfigService_1.ConfigService, core_1.provide('Store', { useValue: store })]);
 
 
 /***/ },
@@ -31785,8 +31786,9 @@
 	            this.players.push(player);
 	        }
 	        else {
-	            var name = document.getElementById('nameInput').value || 'Name';
-	            document.getElementById('nameInput').value = '';
+	            var nameInput = document.getElementById('nameInput');
+	            var name = nameInput.value || 'Name';
+	            nameInput.value = '';
 	            this.players.push(new Player_1.Player(name));
 	        }
 	        localStorage.setItem('players', JSON.stringify(this.players));
@@ -31920,9 +31922,12 @@
 	};
 	var core_1 = __webpack_require__(33);
 	var ConfigService_1 = __webpack_require__(234);
+	var redux_1 = __webpack_require__(1);
 	var ConfigMenu = (function () {
-	    function ConfigMenu(configService) {
+	    function ConfigMenu(configService, store) {
 	        this.configService = configService;
+	        this.store = store;
+	        console.log(store.getState());
 	    }
 	    ConfigMenu.prototype.close = function () {
 	        var configMenuElement = document.querySelector('configMenu');
@@ -31933,8 +31938,9 @@
 	            selector: 'configMenu',
 	            templateUrl: 'app/ConfigMenu.html'
 	        }),
-	        __param(0, core_1.Inject(ConfigService_1.ConfigService)), 
-	        __metadata('design:paramtypes', [ConfigService_1.ConfigService])
+	        __param(0, core_1.Inject(ConfigService_1.ConfigService)),
+	        __param(1, core_1.Inject('Store')), 
+	        __metadata('design:paramtypes', [ConfigService_1.ConfigService, redux_1.Store])
 	    ], ConfigMenu);
 	    return ConfigMenu;
 	})();

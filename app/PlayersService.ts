@@ -18,8 +18,9 @@ export class PlayersService {
     if (player) {
       this.players.push(player);
     } else {
-      var name: string = document.getElementById('nameInput').value || 'Name';
-      document.getElementById('nameInput').value = '';
+      let nameInput: HTMLInputElement = <HTMLInputElement>document.getElementById('nameInput');
+      var name: string = nameInput.value || 'Name';
+      nameInput.value = '';
       this.players.push(new Player(name));
     }
     localStorage.setItem('players', JSON.stringify(this.players));

@@ -20,12 +20,9 @@
     "app/PlayersMenu.ts",
     "app/PlayersService.ts",
     "app/SipIt.ts",
-    "typings/react/react.d.ts",
-    "typings/redux-devtools-dock-monitor/redux-devtools-dock-monitor.d.ts",
-    "typings/redux-devtools-log-monitor/redux-devtools-log-monitor.d.ts",
-    "typings/redux-devtools/redux-devtools.d.ts",
     "typings/redux/redux.d.ts",
-    "typings/tsd.d.ts"
+    "typings/tsd.d.ts",
+    "typings/window.d.ts"
   ],
   "atom": {
     "rewriteTsconfig": true
