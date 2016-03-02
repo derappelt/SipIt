@@ -11,8 +11,6 @@ import {ConfigService} from './ConfigService';
 import {PlayersMenu} from './PlayersMenu';
 import {ConfigMenu} from './ConfigMenu';
 
-import DevTools from './DevTools';
-
 @Component({
   selector: 'sipIt',
   directives: [PlayersMenu, ConfigMenu],
@@ -119,6 +117,6 @@ function rootReducer(state = [], action) {
     return state
   }
 }
-const store = createStore(rootReducer, [], DevTools.instrument());
+const store = createStore(rootReducer, [], window.devToolsExtension ? window.devToolsExtension() : undefined);
 
 bootstrap(SipIt, [PlayersService, ConfigService]);

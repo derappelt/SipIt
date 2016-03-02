@@ -65,7 +65,6 @@
 	var ConfigService_1 = __webpack_require__(234);
 	var PlayersMenu_1 = __webpack_require__(235);
 	var ConfigMenu_1 = __webpack_require__(236);
-	var DevTools_1 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./DevTools\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	var SipIt = (function () {
 	    function SipIt(playersService, configService) {
 	        var _this = this;
@@ -186,7 +185,7 @@
 	            return state;
 	    }
 	}
-	var store = redux_1.createStore(rootReducer, [], DevTools_1.default.instrument());
+	var store = redux_1.createStore(rootReducer, [], window.devToolsExtension ? window.devToolsExtension() : undefined);
 	browser_1.bootstrap(SipIt, [PlayersService_1.PlayersService, ConfigService_1.ConfigService]);
 
 
