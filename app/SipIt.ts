@@ -7,10 +7,10 @@ import {Component, Inject, provide} from 'angular2/core';
 import {store} from './Store';
 import {Observable} from 'rxjs';
 import {Player} from './Player';
-import {PlayersService} from './PlayersService';
 import {ConfigService} from './ConfigService';
 import {PlayersMenu} from './PlayersMenu';
 import {ConfigMenu} from './ConfigMenu';
+import {resetPlayersMultiplier} from './Actions';
 
 @Component({
   selector: 'sipIt',
@@ -24,7 +24,7 @@ export class SipIt {
   autoPlayInterval: number;
   autoPlay: string = 'play';
 
-  constructor( @Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
+  constructor(@Inject(ConfigService) private configService: ConfigService) {
     Observable.fromEvent(document, 'keyup')
       .filter((e:KeyboardEvent) => e.keyCode === 32)
       .subscribe(()=>this.rollTheDice());
@@ -33,7 +33,7 @@ export class SipIt {
     return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
   }
   dicePlayer(): Player {
-    return this.playersService.players[Math.floor(Math.random() * this.playersService.players.length)];
+    return store.getState().players[Math.floor(Math.random() * store.getState().players.length)];
   }
   rollTheDice(e?: Event): void {
     if (this.autoPlay === 'pause')
@@ -43,13 +43,9 @@ export class SipIt {
     let sips = this.diceSips();
     let player = this.dicePlayer();
     var drinkOrDeal = this.drinkOrDeal();
-    if (this.lastPlayer === player) {
+    if (this.lastPlayer.name === player) {
       player.multi++;
-    } else {
-      for (var i = 0; i < this.playersService.players.length; i++) {
-        this.playersService.players[i].multi = 1;
-      }
-    }
+    } 
     this.lastPlayer = player;
     this.output = this.generateOutput(player, drinkOrDeal, sips);
     this.speechOutput(this.output);
@@ -110,4 +106,4 @@ export class SipIt {
   }
 }
 
-bootstrap(SipIt, [PlayersService, ConfigService, provide('Store', { useValue: store })]);
+bootstrap(SipIt, [ConfigService, provide('Store', { useValue: store })]);

@@ -1,5 +1,6 @@
 import {Component, Inject} from 'angular2/core';
-import {PlayersService} from './PlayersService';
+import {Store} from 'redux';
+import {addPlayer, removePlayer} from './Actions';
 
 @Component({
   selector: 'playersMenu',
@@ -7,7 +8,10 @@ import {PlayersService} from './PlayersService';
 })
 
 export class PlayersMenu {
-  constructor(@Inject(PlayersService) private playersService:PlayersService) { }
+  addPlayer = addPlayer;
+  removePlayer = removePlayer;
+  constructor(@Inject('Store') private store: Store) {
+  }
   close(){
     let playersMenuElement = <HTMLElement>document.querySelector('playersMenu');
     playersMenuElement.style.display = 'none';
