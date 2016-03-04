@@ -1,12 +1,11 @@
 {
-  "compileOnSave": true,
+  "compileOnSave":false,
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "outDir": "lib",
     "noImplicitAny": true
   },
   "exclude": [

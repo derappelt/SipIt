@@ -9,14 +9,14 @@ export class PlayersService {
       this.players = JSON.parse(localStorage.getItem('players'));
     } else {
       this.players = [];
-      this.addPlayer(new Player('Claudi'));
-      this.addPlayer(new Player('Chris'));
-      this.addPlayer(new Player('Simon'));
+      this.addPlayer('Claudi');
+      this.addPlayer('Chris');
+      this.addPlayer('Simon');
     }
    }
-  addPlayer(player?: Player): void {
-    if (player) {
-      this.players.push(player);
+  addPlayer(name?: string): void {
+    if (name) {
+      this.players.push(new Player(name));
     } else {
       let nameInputElement: HTMLInputElement = <HTMLInputElement>document.getElementById('nameInput');
       var name: string = nameInputElement.value || 'Name';

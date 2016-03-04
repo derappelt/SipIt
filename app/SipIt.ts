@@ -2,9 +2,9 @@
 ///<reference path="../typings/tsd.d.ts"/>
 /// <reference path="../typings/window.d.ts"/>
 
-import { createStore, applyMiddleware, compose } from 'redux';
 import {bootstrap} from 'angular2/platform/browser';
 import {Component, Inject, provide} from 'angular2/core';
+import {store} from './Store';
 import {Observable} from 'rxjs';
 import {Player} from './Player';
 import {PlayersService} from './PlayersService';
@@ -109,12 +109,5 @@ export class SipIt {
     }
   }
 }
-function rootReducer(state:Object[] = [], action) {
-  switch (action.type) {
-    default:
-    return state
-  }
-}
-const store = createStore(rootReducer, [], window.devToolsExtension ? window.devToolsExtension() : undefined);
 
 bootstrap(SipIt, [PlayersService, ConfigService, provide('Store', { useValue: store })]);
