@@ -1,8 +1,10 @@
 ///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
-///<reference path="./speech.d.ts"/>
+///<reference path="../typings/tsd.d.ts"/>
+/// <reference path="../typings/window.d.ts"/>
 
+import { createStore, applyMiddleware, compose } from 'redux';
 import {bootstrap} from 'angular2/platform/browser';
-import {Component, Inject} from 'angular2/core';
+import {Component, Inject, provide} from 'angular2/core';
 import {Player} from './Player';
 import {PlayersService} from './PlayersService';
 import {ConfigService} from './ConfigService';
@@ -111,5 +113,12 @@ export class SipIt {
     }
   }
 }
+function rootReducer(state = [], action) {
+  switch (action.type) {
+    default:
+    return state
+  }
+}
+const store = createStore(rootReducer, [], window.devToolsExtension ? window.devToolsExtension() : undefined);
 
-bootstrap(SipIt, [PlayersService, ConfigService]);
+bootstrap(SipIt, [PlayersService, ConfigService, provide('Store', { useValue: store })]);
