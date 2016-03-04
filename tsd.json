@@ -7,6 +7,60 @@
   "installed": {
     "redux/redux.d.ts": {
       "commit": "55c750ace821f85e6643bbdb249dbd0b15a3df78"
+    },
+    "rx/rx.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx-lite.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.all.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.aggregates.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.time-lite.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.time.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.binding.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.async.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.async-lite.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.coincidence.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.binding-lite.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.joinpatterns.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.coincidence-lite.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.experimental.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.virtualtime.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.testing.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.backpressure.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
+    },
+    "rx/rx.backpressure-lite.d.ts": {
+      "commit": "11444987349955e88646958ef277dd419ff646fc"
     }
   }
 }

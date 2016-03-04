@@ -45,7 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
-	///<reference path="./speech.d.ts"/>
+	///<reference path="../typings/tsd.d.ts"/>
+	/// <reference path="../typings/window.d.ts"/>
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -67,10 +68,14 @@
 	var ConfigMenu_1 = __webpack_require__(236);
 	var SipIt = (function () {
 	    function SipIt(playersService, configService) {
+	        var _this = this;
 	        this.playersService = playersService;
 	        this.configService = configService;
 	        this.autoPlay = 'play';
 	        //document.addEventListener('keyup', (e) => this.keyup(e));
+	        Rx.Observable.fromEvent(document, 'keyup')
+	            .filter(function (e) { return e.keyCode === 32; })
+	            .subscribe(function () { return _this.rollTheDice(); });
 	    }
 	    SipIt.prototype.diceSips = function () {
 	        return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -171,7 +176,7 @@
 	            templateUrl: 'app/SipIt.html'
 	        }),
 	        __param(0, core_1.Inject(PlayersService_1.PlayersService)),
-	        __param(1, core_1.Inject(ConfigService_1.ConfigService)),
+	        __param(1, core_1.Inject(ConfigService_1.ConfigService)), 
 	        __metadata('design:paramtypes', [PlayersService_1.PlayersService, ConfigService_1.ConfigService])
 	    ], SipIt);
 	    return SipIt;
@@ -1149,7 +1154,7 @@
 	        this.name = name;
 	    }
 	    AngularEntrypoint = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [String])
 	    ], AngularEntrypoint);
 	    return AngularEntrypoint;
@@ -1798,7 +1803,7 @@
 	    }
 	    InjectMetadata.prototype.toString = function () { return "@Inject(" + lang_1.stringify(this.token) + ")"; };
 	    InjectMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object])
 	    ], InjectMetadata);
 	    return InjectMetadata;
@@ -1830,7 +1835,7 @@
 	    }
 	    OptionalMetadata.prototype.toString = function () { return "@Optional()"; };
 	    OptionalMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], OptionalMetadata);
 	    return OptionalMetadata;
@@ -1849,7 +1854,7 @@
 	        configurable: true
 	    });
 	    DependencyMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], DependencyMetadata);
 	    return DependencyMetadata;
@@ -1890,7 +1895,7 @@
 	    function InjectableMetadata() {
 	    }
 	    InjectableMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], InjectableMetadata);
 	    return InjectableMetadata;
@@ -1928,7 +1933,7 @@
 	    }
 	    SelfMetadata.prototype.toString = function () { return "@Self()"; };
 	    SelfMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], SelfMetadata);
 	    return SelfMetadata;
@@ -1964,7 +1969,7 @@
 	    }
 	    SkipSelfMetadata.prototype.toString = function () { return "@SkipSelf()"; };
 	    SkipSelfMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], SkipSelfMetadata);
 	    return SkipSelfMetadata;
@@ -2029,7 +2034,7 @@
 	    }
 	    HostMetadata.prototype.toString = function () { return "@Host()"; };
 	    HostMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], HostMetadata);
 	    return HostMetadata;
@@ -3754,7 +3759,7 @@
 	        configurable: true
 	    });
 	    Provider = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object, Object])
 	    ], Provider);
 	    return Provider;
@@ -3811,7 +3816,7 @@
 	        configurable: true
 	    });
 	    Binding = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object, Object])
 	    ], Binding);
 	    return Binding;
@@ -3839,7 +3844,7 @@
 	        /**
 	         * Factory function which can return an instance of an object represented by a key.
 	         */
-	        factory,
+	        factory, 
 	        /**
 	         * Arguments (dependencies) to the `factory` function.
 	         */
@@ -5175,7 +5180,7 @@
 	    }
 	    OpaqueToken.prototype.toString = function () { return "Token " + this._desc; };
 	    OpaqueToken = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [String])
 	    ], OpaqueToken);
 	    return OpaqueToken;
@@ -6182,7 +6187,7 @@
 	    });
 	    AttributeMetadata.prototype.toString = function () { return "@Attribute(" + lang_1.stringify(this.attributeName) + ")"; };
 	    AttributeMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [String])
 	    ], AttributeMetadata);
 	    return AttributeMetadata;
@@ -6339,7 +6344,7 @@
 	    });
 	    QueryMetadata.prototype.toString = function () { return "@Query(" + lang_1.stringify(this.selector) + ")"; };
 	    QueryMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object, Object])
 	    ], QueryMetadata);
 	    return QueryMetadata;
@@ -6373,7 +6378,7 @@
 	        _super.call(this, _selector, { descendants: descendants });
 	    }
 	    ContentChildrenMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object, Object])
 	    ], ContentChildrenMetadata);
 	    return ContentChildrenMetadata;
@@ -6406,7 +6411,7 @@
 	        _super.call(this, _selector, { descendants: true, first: true });
 	    }
 	    ContentChildMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object])
 	    ], ContentChildMetadata);
 	    return ContentChildMetadata;
@@ -6463,7 +6468,7 @@
 	    });
 	    ViewQueryMetadata.prototype.toString = function () { return "@ViewQuery(" + lang_1.stringify(this.selector) + ")"; };
 	    ViewQueryMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object, Object])
 	    ], ViewQueryMetadata);
 	    return ViewQueryMetadata;
@@ -6497,7 +6502,7 @@
 	        _super.call(this, _selector, { descendants: true });
 	    }
 	    ViewChildrenMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object])
 	    ], ViewChildrenMetadata);
 	    return ViewChildrenMetadata;
@@ -6531,7 +6536,7 @@
 	        _super.call(this, _selector, { descendants: true, first: true });
 	    }
 	    ViewChildMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object])
 	    ], ViewChildMetadata);
 	    return ViewChildMetadata;
@@ -7116,7 +7121,7 @@
 	        configurable: true
 	    });
 	    DirectiveMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object])
 	    ], DirectiveMetadata);
 	    return DirectiveMetadata;
@@ -7228,7 +7233,7 @@
 	        configurable: true
 	    });
 	    ComponentMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object])
 	    ], ComponentMetadata);
 	    return ComponentMetadata;
@@ -7259,7 +7264,7 @@
 	        configurable: true
 	    });
 	    PipeMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object])
 	    ], PipeMetadata);
 	    return PipeMetadata;
@@ -7315,7 +7320,7 @@
 	        this.bindingPropertyName = bindingPropertyName;
 	    }
 	    InputMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [String])
 	    ], InputMetadata);
 	    return InputMetadata;
@@ -7367,7 +7372,7 @@
 	        this.bindingPropertyName = bindingPropertyName;
 	    }
 	    OutputMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [String])
 	    ], OutputMetadata);
 	    return OutputMetadata;
@@ -7413,7 +7418,7 @@
 	        this.hostPropertyName = hostPropertyName;
 	    }
 	    HostBindingMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [String])
 	    ], HostBindingMetadata);
 	    return HostBindingMetadata;
@@ -7459,7 +7464,7 @@
 	        this.args = args;
 	    }
 	    HostListenerMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [String, Array])
 	    ], HostListenerMetadata);
 	    return HostListenerMetadata;
@@ -7632,7 +7637,7 @@
 	    };
 	    IterableDiffers = __decorate([
 	        di_1.Injectable(),
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Array])
 	    ], IterableDiffers);
 	    return IterableDiffers;
@@ -7665,7 +7670,7 @@
 	        return new DefaultIterableDiffer(trackByFn);
 	    };
 	    DefaultIterableDifferFactory = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], DefaultIterableDifferFactory);
 	    return DefaultIterableDifferFactory;
@@ -8386,7 +8391,7 @@
 	    };
 	    KeyValueDiffers = __decorate([
 	        di_1.Injectable(),
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Array])
 	    ], KeyValueDiffers);
 	    return KeyValueDiffers;
@@ -8416,7 +8421,7 @@
 	    DefaultKeyValueDifferFactory.prototype.supports = function (obj) { return obj instanceof Map || lang_1.isJsObject(obj); };
 	    DefaultKeyValueDifferFactory.prototype.create = function (cdRef) { return new DefaultKeyValueDiffer(); };
 	    DefaultKeyValueDifferFactory = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], DefaultKeyValueDifferFactory);
 	    return DefaultKeyValueDifferFactory;
@@ -9234,7 +9239,7 @@
 	        return tokens;
 	    };
 	    Lexer = __decorate([
-	        decorators_1.Injectable(),
+	        decorators_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], Lexer);
 	    return Lexer;
@@ -9768,7 +9773,7 @@
 	        return errLocation.length;
 	    };
 	    Parser = __decorate([
-	        decorators_1.Injectable(),
+	        decorators_1.Injectable(), 
 	        __metadata('design:paramtypes', [lexer_1.Lexer, reflection_1.Reflector])
 	    ], Parser);
 	    return Parser;
@@ -14688,7 +14693,7 @@
 	        this.encapsulation = encapsulation;
 	    }
 	    ViewMetadata = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [Object])
 	    ], ViewMetadata);
 	    return ViewMetadata;
@@ -15760,7 +15765,7 @@
 	        return [];
 	    };
 	    Testability = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [ng_zone_1.NgZone])
 	    ], Testability);
 	    return Testability;
@@ -15785,7 +15790,7 @@
 	        return _testabilityGetter.findTestabilityInTree(this, elem, findInAncestors);
 	    };
 	    TestabilityRegistry = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], TestabilityRegistry);
 	    return TestabilityRegistry;
@@ -15799,7 +15804,7 @@
 	        return null;
 	    };
 	    _NoopGetTestability = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [])
 	    ], _NoopGetTestability);
 	    return _NoopGetTestability;
@@ -15955,7 +15960,7 @@
 	        });
 	    };
 	    DynamicComponentLoader_ = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [compiler_1.Compiler, view_manager_1.AppViewManager])
 	    ], DynamicComponentLoader_);
 	    return DynamicComponentLoader_;
@@ -16019,7 +16024,7 @@
 	    };
 	    Compiler_.prototype.clearCache = function () { };
 	    Compiler_ = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], Compiler_);
 	    return Compiler_;
@@ -16294,7 +16299,7 @@
 	        this.viewFactory = viewFactory;
 	    }
 	    HostViewFactory = __decorate([
-	        lang_1.CONST(),
+	        lang_1.CONST(), 
 	        __metadata('design:paramtypes', [String, Function])
 	    ], HostViewFactory);
 	    return HostViewFactory;
@@ -18040,7 +18045,7 @@
 	    };
 	    AppViewManager_ = __decorate([
 	        di_1.Injectable(),
-	        __param(1, di_1.Inject(application_tokens_1.APP_ID)),
+	        __param(1, di_1.Inject(application_tokens_1.APP_ID)), 
 	        __metadata('design:paramtypes', [api_1.RootRenderer, String])
 	    ], AppViewManager_);
 	    return AppViewManager_;
@@ -18068,7 +18073,7 @@
 	    }
 	    Console.prototype.log = function (message) { lang_1.print(message); };
 	    Console = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], Console);
 	    return Console;
@@ -18269,7 +18274,7 @@
 	        }
 	    };
 	    DirectiveResolver = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], DirectiveResolver);
 	    return DirectiveResolver;
@@ -18381,7 +18386,7 @@
 	        throw new exceptions_1.BaseException("Component '" + lang_1.stringify(component) + "' cannot have both '" + propertyName + "' and '@View' set at the same time\"");
 	    };
 	    ViewResolver = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], ViewResolver);
 	    return ViewResolver;
@@ -18707,7 +18712,7 @@
 	        return result;
 	    };
 	    ResolvedMetadataCache = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [directive_resolver_1.DirectiveResolver, pipe_resolver_1.PipeResolver])
 	    ], ResolvedMetadataCache);
 	    return ResolvedMetadataCache;
@@ -18761,7 +18766,7 @@
 	        throw new exceptions_1.BaseException("No Pipe decorator found on " + lang_1.stringify(type));
 	    };
 	    PipeResolver = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], PipeResolver);
 	    return PipeResolver;
@@ -18971,7 +18976,7 @@
 	    AsyncPipe = __decorate([
 	        // avoid unused import when Promise union types are erased
 	        core_1.Pipe({ name: 'async', pure: false }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [core_1.ChangeDetectorRef])
 	    ], AsyncPipe);
 	    return AsyncPipe;
@@ -19038,7 +19043,7 @@
 	    UpperCasePipe = __decorate([
 	        lang_1.CONST(),
 	        core_1.Pipe({ name: 'uppercase' }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], UpperCasePipe);
 	    return UpperCasePipe;
@@ -19084,7 +19089,7 @@
 	    LowerCasePipe = __decorate([
 	        lang_1.CONST(),
 	        core_1.Pipe({ name: 'lowercase' }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], LowerCasePipe);
 	    return LowerCasePipe;
@@ -19123,7 +19128,7 @@
 	    JsonPipe = __decorate([
 	        lang_1.CONST(),
 	        core_1.Pipe({ name: 'json', pure: false }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], JsonPipe);
 	    return JsonPipe;
@@ -19223,7 +19228,7 @@
 	    SlicePipe.prototype.supports = function (obj) { return lang_1.isString(obj) || lang_1.isArray(obj); };
 	    SlicePipe = __decorate([
 	        core_1.Pipe({ name: 'slice', pure: false }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], SlicePipe);
 	    return SlicePipe;
@@ -19350,7 +19355,7 @@
 	    DatePipe = __decorate([
 	        lang_1.CONST(),
 	        core_1.Pipe({ name: 'date', pure: true }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], DatePipe);
 	    return DatePipe;
@@ -19534,7 +19539,7 @@
 	    };
 	    NumberPipe = __decorate([
 	        lang_1.CONST(),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], NumberPipe);
 	    return NumberPipe;
@@ -19578,7 +19583,7 @@
 	    DecimalPipe = __decorate([
 	        lang_1.CONST(),
 	        core_1.Pipe({ name: 'number' }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], DecimalPipe);
 	    return DecimalPipe;
@@ -19612,7 +19617,7 @@
 	    PercentPipe = __decorate([
 	        lang_1.CONST(),
 	        core_1.Pipe({ name: 'percent' }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], PercentPipe);
 	    return PercentPipe;
@@ -19652,7 +19657,7 @@
 	    CurrencyPipe = __decorate([
 	        lang_1.CONST(),
 	        core_1.Pipe({ name: 'currency' }),
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], CurrencyPipe);
 	    return CurrencyPipe;
@@ -19875,7 +19880,7 @@
 	        }
 	    };
 	    NgClass = __decorate([
-	        core_1.Directive({ selector: '[ngClass]', inputs: ['rawClass: ngClass', 'initialClasses: class'] }),
+	        core_1.Directive({ selector: '[ngClass]', inputs: ['rawClass: ngClass', 'initialClasses: class'] }), 
 	        __metadata('design:paramtypes', [core_1.IterableDiffers, core_1.KeyValueDiffers, core_1.ElementRef, core_1.Renderer])
 	    ], NgClass);
 	    return NgClass;
@@ -20050,7 +20055,7 @@
 	        return tuples;
 	    };
 	    NgFor = __decorate([
-	        core_1.Directive({ selector: '[ngFor][ngForOf]', inputs: ['ngForTrackBy', 'ngForOf', 'ngForTemplate'] }),
+	        core_1.Directive({ selector: '[ngFor][ngForOf]', inputs: ['ngForTrackBy', 'ngForOf', 'ngForTemplate'] }), 
 	        __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.TemplateRef, core_1.IterableDiffers, core_1.ChangeDetectorRef])
 	    ], NgFor);
 	    return NgFor;
@@ -20123,7 +20128,7 @@
 	        configurable: true
 	    });
 	    NgIf = __decorate([
-	        core_1.Directive({ selector: '[ngIf]', inputs: ['ngIf'] }),
+	        core_1.Directive({ selector: '[ngIf]', inputs: ['ngIf'] }), 
 	        __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.TemplateRef])
 	    ], NgIf);
 	    return NgIf;
@@ -20231,7 +20236,7 @@
 	        this._renderer.setElementStyle(this._ngEl.nativeElement, name, val);
 	    };
 	    NgStyle = __decorate([
-	        core_1.Directive({ selector: '[ngStyle]', inputs: ['rawStyle: ngStyle'] }),
+	        core_1.Directive({ selector: '[ngStyle]', inputs: ['rawStyle: ngStyle'] }), 
 	        __metadata('design:paramtypes', [core_1.KeyValueDiffers, core_1.ElementRef, core_1.Renderer])
 	    ], NgStyle);
 	    return NgStyle;
@@ -20412,7 +20417,7 @@
 	        }
 	    };
 	    NgSwitch = __decorate([
-	        core_1.Directive({ selector: '[ngSwitch]', inputs: ['ngSwitch'] }),
+	        core_1.Directive({ selector: '[ngSwitch]', inputs: ['ngSwitch'] }), 
 	        __metadata('design:paramtypes', [])
 	    ], NgSwitch);
 	    return NgSwitch;
@@ -20444,7 +20449,7 @@
 	    });
 	    NgSwitchWhen = __decorate([
 	        core_1.Directive({ selector: '[ngSwitchWhen]', inputs: ['ngSwitchWhen'] }),
-	        __param(2, core_1.Host()),
+	        __param(2, core_1.Host()), 
 	        __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.TemplateRef, NgSwitch])
 	    ], NgSwitchWhen);
 	    return NgSwitchWhen;
@@ -20462,7 +20467,7 @@
 	    }
 	    NgSwitchDefault = __decorate([
 	        core_1.Directive({ selector: '[ngSwitchDefault]' }),
-	        __param(2, core_1.Host()),
+	        __param(2, core_1.Host()), 
 	        __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.TemplateRef, NgSwitch])
 	    ], NgSwitchDefault);
 	    return NgSwitchDefault;
@@ -21382,7 +21387,7 @@
 	        __param(2, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)),
 	        __param(3, core_1.Optional()),
 	        __param(3, core_1.Self()),
-	        __param(3, core_1.Inject(control_value_accessor_1.NG_VALUE_ACCESSOR)),
+	        __param(3, core_1.Inject(control_value_accessor_1.NG_VALUE_ACCESSOR)), 
 	        __metadata('design:paramtypes', [control_container_1.ControlContainer, Array, Array, Array])
 	    ], NgControlName);
 	    return NgControlName;
@@ -21718,7 +21723,7 @@
 	            // selector: '[ngControl],[ngModel],[ngFormControl]',
 	            host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
 	            bindings: [DEFAULT_VALUE_ACCESSOR]
-	        }),
+	        }), 
 	        __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
 	    ], DefaultValueAccessor);
 	    return DefaultValueAccessor;
@@ -21775,7 +21780,7 @@
 	                '(blur)': 'onTouched()'
 	            },
 	            bindings: [NUMBER_VALUE_ACCESSOR]
-	        }),
+	        }), 
 	        __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
 	    ], NumberValueAccessor);
 	    return NumberValueAccessor;
@@ -21825,7 +21830,7 @@
 	            selector: 'input[type=checkbox][ngControl],input[type=checkbox][ngFormControl],input[type=checkbox][ngModel]',
 	            host: { '(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()' },
 	            providers: [CHECKBOX_VALUE_ACCESSOR]
-	        }),
+	        }), 
 	        __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
 	    ], CheckboxControlValueAccessor);
 	    return CheckboxControlValueAccessor;
@@ -21869,7 +21874,7 @@
 	    function NgSelectOption() {
 	    }
 	    NgSelectOption = __decorate([
-	        core_1.Directive({ selector: 'option' }),
+	        core_1.Directive({ selector: 'option' }), 
 	        __metadata('design:paramtypes', [])
 	    ], NgSelectOption);
 	    return NgSelectOption;
@@ -21902,7 +21907,7 @@
 	            host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
 	            bindings: [SELECT_VALUE_ACCESSOR]
 	        }),
-	        __param(2, core_1.Query(NgSelectOption, { descendants: true })),
+	        __param(2, core_1.Query(NgSelectOption, { descendants: true })), 
 	        __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef, core_1.QueryList])
 	    ], SelectControlValueAccessor);
 	    return SelectControlValueAccessor;
@@ -21956,7 +21961,7 @@
 	        });
 	    };
 	    RadioControlRegistry = __decorate([
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], RadioControlRegistry);
 	    return RadioControlRegistry;
@@ -22022,7 +22027,7 @@
 	    RadioControlValueAccessor.prototype.fireUncheck = function () { this._fn(new RadioButtonState(false, this._state.value)); };
 	    RadioControlValueAccessor.prototype.registerOnTouched = function (fn) { this.onTouched = fn; };
 	    __decorate([
-	        core_1.Input(),
+	        core_1.Input(), 
 	        __metadata('design:type', String)
 	    ], RadioControlValueAccessor.prototype, "name", void 0);
 	    RadioControlValueAccessor = __decorate([
@@ -22030,7 +22035,7 @@
 	            selector: 'input[type=radio][ngControl],input[type=radio][ngFormControl],input[type=radio][ngModel]',
 	            host: { '(change)': 'onChange()', '(blur)': 'onTouched()' },
 	            providers: [RADIO_VALUE_ACCESSOR]
-	        }),
+	        }), 
 	        __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef, RadioControlRegistry, core_1.Injector])
 	    ], RadioControlValueAccessor);
 	    return RadioControlValueAccessor;
@@ -22192,7 +22197,7 @@
 	        __param(1, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)),
 	        __param(2, core_1.Optional()),
 	        __param(2, core_1.Self()),
-	        __param(2, core_1.Inject(control_value_accessor_1.NG_VALUE_ACCESSOR)),
+	        __param(2, core_1.Inject(control_value_accessor_1.NG_VALUE_ACCESSOR)), 
 	        __metadata('design:paramtypes', [Array, Array, Array])
 	    ], NgFormControl);
 	    return NgFormControl;
@@ -22315,7 +22320,7 @@
 	        __param(1, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)),
 	        __param(2, core_1.Optional()),
 	        __param(2, core_1.Self()),
-	        __param(2, core_1.Inject(control_value_accessor_1.NG_VALUE_ACCESSOR)),
+	        __param(2, core_1.Inject(control_value_accessor_1.NG_VALUE_ACCESSOR)), 
 	        __metadata('design:paramtypes', [Array, Array, Array])
 	    ], NgModel);
 	    return NgModel;
@@ -22456,7 +22461,7 @@
 	        __param(1, core_1.Inject(validators_1.NG_VALIDATORS)),
 	        __param(2, core_1.Optional()),
 	        __param(2, core_1.Self()),
-	        __param(2, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)),
+	        __param(2, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)), 
 	        __metadata('design:paramtypes', [control_container_1.ControlContainer, Array, Array])
 	    ], NgControlGroup);
 	    return NgControlGroup;
@@ -22647,7 +22652,7 @@
 	        __param(0, core_1.Inject(validators_1.NG_VALIDATORS)),
 	        __param(1, core_1.Optional()),
 	        __param(1, core_1.Self()),
-	        __param(1, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)),
+	        __param(1, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)), 
 	        __metadata('design:paramtypes', [Array, Array])
 	    ], NgFormModel);
 	    return NgFormModel;
@@ -22846,7 +22851,7 @@
 	        __param(0, core_1.Inject(validators_1.NG_VALIDATORS)),
 	        __param(1, core_1.Optional()),
 	        __param(1, core_1.Self()),
-	        __param(1, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)),
+	        __param(1, core_1.Inject(validators_1.NG_ASYNC_VALIDATORS)), 
 	        __metadata('design:paramtypes', [Array, Array])
 	    ], NgForm);
 	    return NgForm;
@@ -22935,7 +22940,7 @@
 	                '[class.ng-invalid]': 'ngClassInvalid'
 	            }
 	        }),
-	        __param(0, core_1.Self()),
+	        __param(0, core_1.Self()), 
 	        __metadata('design:paramtypes', [ng_control_1.NgControl])
 	    ], NgControlStatus);
 	    return NgControlStatus;
@@ -23067,7 +23072,7 @@
 	        core_1.Directive({
 	            selector: '[required][ngControl],[required][ngFormControl],[required][ngModel]',
 	            providers: [REQUIRED_VALIDATOR]
-	        }),
+	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], RequiredValidator);
 	    return RequiredValidator;
@@ -23095,7 +23100,7 @@
 	            selector: '[minlength][ngControl],[minlength][ngFormControl],[minlength][ngModel]',
 	            providers: [MIN_LENGTH_VALIDATOR]
 	        }),
-	        __param(0, core_1.Attribute("minlength")),
+	        __param(0, core_1.Attribute("minlength")), 
 	        __metadata('design:paramtypes', [String])
 	    ], MinLengthValidator);
 	    return MinLengthValidator;
@@ -23123,7 +23128,7 @@
 	            selector: '[maxlength][ngControl],[maxlength][ngFormControl],[maxlength][ngModel]',
 	            providers: [MAX_LENGTH_VALIDATOR]
 	        }),
-	        __param(0, core_1.Attribute("maxlength")),
+	        __param(0, core_1.Attribute("maxlength")), 
 	        __metadata('design:paramtypes', [String])
 	    ], MaxLengthValidator);
 	    return MaxLengthValidator;
@@ -23252,7 +23257,7 @@
 	        }
 	    };
 	    FormBuilder = __decorate([
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], FormBuilder);
 	    return FormBuilder;
@@ -23390,7 +23395,7 @@
 	        return this.manager.getZone().runOutsideAngular(function () { return dom_adapter_1.DOM.onAndCancel(element, eventName, outsideHandler); });
 	    };
 	    DomEventsPlugin = __decorate([
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], DomEventsPlugin);
 	    return DomEventsPlugin;
@@ -23449,7 +23454,7 @@
 	    };
 	    EventManager = __decorate([
 	        di_1.Injectable(),
-	        __param(0, di_1.Inject(exports.EVENT_MANAGER_PLUGINS)),
+	        __param(0, di_1.Inject(exports.EVENT_MANAGER_PLUGINS)), 
 	        __metadata('design:paramtypes', [Array, ng_zone_1.NgZone])
 	    ], EventManager);
 	    return EventManager;
@@ -23581,7 +23586,7 @@
 	        }
 	    };
 	    KeyEventsPlugin = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], KeyEventsPlugin);
 	    return KeyEventsPlugin;
@@ -23638,7 +23643,7 @@
 	        });
 	    };
 	    HammerGesturesPlugin = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], HammerGesturesPlugin);
 	    return HammerGesturesPlugin;
@@ -23783,7 +23788,7 @@
 	    }
 	    DomRootRenderer_ = __decorate([
 	        di_1.Injectable(),
-	        __param(0, di_1.Inject(dom_tokens_1.DOCUMENT)),
+	        __param(0, di_1.Inject(dom_tokens_1.DOCUMENT)), 
 	        __metadata('design:paramtypes', [Object, event_manager_1.EventManager, shared_styles_host_1.DomSharedStylesHost, animation_builder_1.AnimationBuilder])
 	    ], DomRootRenderer_);
 	    return DomRootRenderer_;
@@ -24073,7 +24078,7 @@
 	     */
 	    AnimationBuilder.prototype.css = function () { return new css_animation_builder_1.CssAnimationBuilder(this.browserDetails); };
 	    AnimationBuilder = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [browser_details_1.BrowserDetails])
 	    ], AnimationBuilder);
 	    return AnimationBuilder;
@@ -24448,7 +24453,7 @@
 	        return function () { return queue.cancel(); };
 	    };
 	    BrowserDetails = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], BrowserDetails);
 	    return BrowserDetails;
@@ -24528,7 +24533,7 @@
 	    SharedStylesHost.prototype.onStylesAdded = function (additions) { };
 	    SharedStylesHost.prototype.getAllStyles = function () { return this._styles; };
 	    SharedStylesHost = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], SharedStylesHost);
 	    return SharedStylesHost;
@@ -24559,7 +24564,7 @@
 	    };
 	    DomSharedStylesHost = __decorate([
 	        di_1.Injectable(),
-	        __param(0, di_1.Inject(dom_tokens_1.DOCUMENT)),
+	        __param(0, di_1.Inject(dom_tokens_1.DOCUMENT)), 
 	        __metadata('design:paramtypes', [Object])
 	    ], DomSharedStylesHost);
 	    return DomSharedStylesHost;
@@ -25696,7 +25701,7 @@
 	    };
 	    UrlResolver = __decorate([
 	        di_1.Injectable(),
-	        __param(0, di_1.Inject(application_tokens_1.PACKAGE_ROOT_URL)),
+	        __param(0, di_1.Inject(application_tokens_1.PACKAGE_ROOT_URL)), 
 	        __metadata('design:paramtypes', [String])
 	    ], UrlResolver);
 	    return UrlResolver;
@@ -26068,7 +26073,7 @@
 	        this._templateCompiler.clearCache();
 	    };
 	    RuntimeCompiler_ = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [template_compiler_1.TemplateCompiler])
 	    ], RuntimeCompiler_);
 	    return RuntimeCompiler_;
@@ -26282,7 +26287,7 @@
 	        return viewFactoryExpr.expression;
 	    };
 	    TemplateCompiler = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [runtime_metadata_1.RuntimeMetadataResolver, template_normalizer_1.TemplateNormalizer, template_parser_1.TemplateParser, style_compiler_1.StyleCompiler, change_detector_compiler_1.ChangeDetectionCompiler, proto_view_compiler_1.ProtoViewCompiler, view_compiler_1.ViewCompiler, resolved_metadata_cache_1.ResolvedMetadataCache, change_detection_1.ChangeDetectorGenConfig])
 	    ], TemplateCompiler);
 	    return TemplateCompiler;
@@ -27680,7 +27685,7 @@
 	        return new source_module_1.SourceExpressions(sourceParts, factories);
 	    };
 	    ChangeDetectionCompiler = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [change_detection_1.ChangeDetectorGenConfig])
 	    ], ChangeDetectionCompiler);
 	    return ChangeDetectionCompiler;
@@ -27973,7 +27978,7 @@
 	        return shim ? stylesheetUrl + ".shim" + util_1.MODULE_SUFFIX : "" + stylesheetUrl + util_1.MODULE_SUFFIX;
 	    };
 	    StyleCompiler = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [xhr_1.XHR, url_resolver_1.UrlResolver])
 	    ], StyleCompiler);
 	    return StyleCompiler;
@@ -28573,7 +28578,7 @@
 	        return new source_module_1.SourceExpression(targetStatements.map(function (stmt) { return stmt.statement; }), viewFactoryExpression.expression);
 	    };
 	    ViewCompiler = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], ViewCompiler);
 	    return ViewCompiler;
@@ -28989,7 +28994,7 @@
 	        return new CompileProtoViews(allStatements.map(function (stmt) { return stmt.statement; }), allProtoViews);
 	    };
 	    ProtoViewCompiler = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], ProtoViewCompiler);
 	    return ProtoViewCompiler;
@@ -29345,7 +29350,7 @@
 	    TemplateParser = __decorate([
 	        core_1.Injectable(),
 	        __param(3, core_1.Optional()),
-	        __param(3, core_1.Inject(exports.TEMPLATE_TRANSFORMS)),
+	        __param(3, core_1.Inject(exports.TEMPLATE_TRANSFORMS)), 
 	        __metadata('design:paramtypes', [change_detection_1.Parser, element_schema_registry_1.ElementSchemaRegistry, html_parser_1.HtmlParser, Array])
 	    ], TemplateParser);
 	    return TemplateParser;
@@ -29971,7 +29976,7 @@
 	            .concat(treeAndErrors.errors));
 	    };
 	    HtmlParser = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], HtmlParser);
 	    return HtmlParser;
@@ -31427,7 +31432,7 @@
 	        });
 	    };
 	    TemplateNormalizer = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [xhr_1.XHR, url_resolver_1.UrlResolver, html_parser_1.HtmlParser])
 	    ], TemplateNormalizer);
 	    return TemplateNormalizer;
@@ -31599,7 +31604,7 @@
 	        __param(3, di_2.Optional()),
 	        __param(3, di_2.Inject(platform_directives_and_pipes_1.PLATFORM_DIRECTIVES)),
 	        __param(4, di_2.Optional()),
-	        __param(4, di_2.Inject(platform_directives_and_pipes_1.PLATFORM_PIPES)),
+	        __param(4, di_2.Inject(platform_directives_and_pipes_1.PLATFORM_PIPES)), 
 	        __metadata('design:paramtypes', [directive_resolver_1.DirectiveResolver, pipe_resolver_1.PipeResolver, view_resolver_1.ViewResolver, Array, Array])
 	    ], RuntimeMetadataResolver);
 	    return RuntimeMetadataResolver;
@@ -31744,7 +31749,7 @@
 	        return lang_1.isPresent(mappedPropName) ? mappedPropName : propName;
 	    };
 	    DomElementSchemaRegistry = __decorate([
-	        di_1.Injectable(),
+	        di_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], DomElementSchemaRegistry);
 	    return DomElementSchemaRegistry;
@@ -31756,6 +31761,7 @@
 /* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -31796,11 +31802,11 @@
 	        localStorage.setItem('players', JSON.stringify(this.players));
 	    };
 	    PlayersService = __decorate([
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], PlayersService);
 	    return PlayersService;
-	})();
+	}());
 	exports.PlayersService = PlayersService;
 
 
@@ -31855,7 +31861,7 @@
 	        localStorage.setItem('config', JSON.stringify(this));
 	    };
 	    ConfigService = __decorate([
-	        core_1.Injectable(),
+	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [])
 	    ], ConfigService);
 	    return ConfigService;
@@ -31894,7 +31900,7 @@
 	            selector: 'playersMenu',
 	            templateUrl: 'app/PlayersMenu.html'
 	        }),
-	        __param(0, core_1.Inject(PlayersService_1.PlayersService)),
+	        __param(0, core_1.Inject(PlayersService_1.PlayersService)), 
 	        __metadata('design:paramtypes', [PlayersService_1.PlayersService])
 	    ], PlayersMenu);
 	    return PlayersMenu;
@@ -31937,7 +31943,7 @@
 	            templateUrl: 'app/ConfigMenu.html'
 	        }),
 	        __param(0, core_1.Inject(ConfigService_1.ConfigService)),
-	        __param(1, core_1.Inject('Store')),
+	        __param(1, core_1.Inject('Store')), 
 	        __metadata('design:paramtypes', [ConfigService_1.ConfigService, redux_1.Store])
 	    ], ConfigMenu);
 	    return ConfigMenu;

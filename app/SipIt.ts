@@ -5,6 +5,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import {bootstrap} from 'angular2/platform/browser';
 import {Component, Inject, provide} from 'angular2/core';
+import {Observable} from 'rxjs';
 import {Player} from './Player';
 import {PlayersService} from './PlayersService';
 import {ConfigService} from './ConfigService';
@@ -24,9 +25,9 @@ export class SipIt {
   autoPlay: string = 'play';
 
   constructor( @Inject(PlayersService) private playersService: PlayersService, @Inject(ConfigService) private configService: ConfigService) {
-    document.addEventListener('keyup', (e) => this.keyup(e));
-    // Rx.Observable.fromEvent(document, 'keyup')
-    //   .filter((e) => e.keyCode === 32)
+    Observable.fromEvent(document, 'keyup')
+      .filter((e:KeyboardEvent) => e.keyCode === 32)
+      .subscribe(()=>this.rollTheDice());
   }
   diceSips(): number {
     return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -99,11 +100,6 @@ export class SipIt {
     }
     this.configService.update();
   }
-  keyup(e: KeyboardEvent): void{
-    if (e.keyCode === 32) {
-      this.rollTheDice();
-    }
-  }
   openMenu(selector: string, open: boolean):void {
     let menuElement = <HTMLElement>document.querySelector(selector);
     if (open === false) {
@@ -113,7 +109,7 @@ export class SipIt {
     }
   }
 }
-function rootReducer(state = [], action) {
+function rootReducer(state:Object[] = [], action) {
   switch (action.type) {
     default:
     return state

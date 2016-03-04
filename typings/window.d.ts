@@ -3,5 +3,5 @@ interface Window {
   devToolsExtension: any;
 }
 declare class SpeechSynthesisUtterance{
-  constructor(string);
+  constructor(string:string);
 }
