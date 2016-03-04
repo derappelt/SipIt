@@ -1,16 +1,16 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "lib",
+    "noImplicitAny": true
   },
-  "files": [
-    "./app/ConfigService.ts",
-    "./app/Player.ts",
-    "./app/PlayersMenu.ts",
-    "./app/PlayersService.ts",
-    "./app/SipIt.ts"
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

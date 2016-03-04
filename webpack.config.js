@@ -1,12 +1,14 @@
+const path = require('path');
+const webpack = require('webpack');
+
 module.exports = {
-  entry: './app/SipIt.ts',
+  entry: {
+    app: './app/SipIt.ts'
+  },
   output: {
-    path: __dirname,
-<<<<<<< Updated upstream
-    filename: "./dist/bundle.js"
-=======
-    filename: "dist/bundle.js"
->>>>>>> Stashed changes
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: 'dist'
   },
   resolve: {
     extensions: ['', '.js', '.ts']

@@ -1,8 +1,8 @@
 <div class="sipit" (click)="rollTheDice($event)" (keyup)="keyup($event)">
   <div id="output" class="output">{{output}}</div>
 </div>
-<div class="playersMenuBtn" (click)="openMenu('players', true)"></div>
-<div class="settingsMenuBtn" (click)="openMenu('config', true)"></div>
+<div class="playersMenuBtn" (click)="openMenu('playersMenu', true)"></div>
+<div class="settingsMenuBtn" (click)="openMenu('configMenu', true)"></div>
 <div class="autoPlayBtn" [ngClass]="autoPlay" (click)="toggleAutoPlay()"></div>
 <input type="range" class="autoPlayTimeRange" min="2000" max="40000" step="2000" [(ngModel)]="configService.autoPlayTime" (change)="autoPlayTimeUpdate()"><span class="autoPlayTimeLable">{{configService.autoPlayTime/1000}} Sekunden</span>
 

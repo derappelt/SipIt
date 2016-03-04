@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "dist";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -44,10 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-<<<<<<< Updated upstream:dist/bundle.js
-	///<reference path="../node_modules/angular2/typings/browser.d.ts"/> 
-=======
->>>>>>> Stashed changes:dist/bundle.js
+	///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+	///<reference path="./speech.d.ts"/>
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68,11 +66,10 @@
 	var ConfigMenu_1 = __webpack_require__(225);
 	var SipIt = (function () {
 	    function SipIt(playersService, configService) {
-	        var _this = this;
 	        this.playersService = playersService;
 	        this.configService = configService;
 	        this.autoPlay = 'play';
-	        document.addEventListener('keyup', function (e) { return _this.keyup(e); });
+	        //document.addEventListener('keyup', (e) => this.keyup(e));
 	    }
 	    SipIt.prototype.diceSips = function () {
 	        return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -157,8 +154,8 @@
 	            this.rollTheDice();
 	        }
 	    };
-	    SipIt.prototype.openMenu = function (menu, open) {
-	        var menuElement = document.querySelector(menu + 'menu');
+	    SipIt.prototype.openMenu = function (selector, open) {
+	        var menuElement = document.querySelector(selector);
 	        if (open === false) {
 	            menuElement.style.display = 'none';
 	        }
@@ -30962,8 +30959,9 @@
 	            this.players.push(player);
 	        }
 	        else {
-	            var name = document.getElementById('nameInput').value || 'Name';
-	            document.getElementById('nameInput').value = '';
+	            var nameInputElement = document.getElementById('nameInput');
+	            var name = nameInputElement.value || 'Name';
+	            nameInputElement.value = '';
 	            this.players.push(new Player_1.Player(name));
 	        }
 	        localStorage.setItem('players', JSON.stringify(this.players));

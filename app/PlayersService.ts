@@ -14,17 +14,18 @@ export class PlayersService {
       this.addPlayer(new Player('Simon'));
     }
    }
-  addPlayer(player) {
+  addPlayer(player?: Player): void {
     if (player) {
       this.players.push(player);
     } else {
-      var name: string = document.getElementById('nameInput').value || 'Name';
-      document.getElementById('nameInput').value = '';
+      let nameInputElement: HTMLInputElement = <HTMLInputElement>document.getElementById('nameInput');
+      var name: string = nameInputElement.value || 'Name';
+      nameInputElement.value = '';
       this.players.push(new Player(name));
     }
     localStorage.setItem('players', JSON.stringify(this.players));
   }
-  removePlayer(index) {
+  removePlayer(index:number): void {
     this.players.splice(index, 1);
     localStorage.setItem('players', JSON.stringify(this.players));
   }

@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var webpack = require('gulp-webpack');
  
-gulp.task('default', ['sass', 'sass:watch'], function() {
+gulp.task('default', ['sass', 'webpack'], function() {
   
 });
  
