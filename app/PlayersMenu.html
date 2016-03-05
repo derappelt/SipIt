@@ -1,12 +1,12 @@
 <h2>Spieler</h2>
 <ul id="players" class="players">
-  <li *ngFor="#player of playersService.players; #i = index" class="player">
+  <li *ngFor="#player of store.getState().players; #i = index" class="player">
     {{player.name}}
-    <span class="delete" (click)="playersService.removePlayer(i)">Löschen</span>
+    <span class="delete" (click)="store.dispatch(removePlayer(i))">Löschen</span>
   </li>
 </ul>
-<form (submit)="playersService.addPlayer()">
-  <input type="text" placeholder="Name" class="nameInput" id="nameInput">
-  <div class="addBtn" (click)="playersService.addPlayer()"></div>
+<form (submit)="store.dispatch(addPlayer(nameInput.value))">
+  <input type="text" placeholder="Name" class="nameInput" id="nameInput" #nameInput>
+  <div class="addBtn" (click)="store.dispatch(addPlayer(nameInput.value))"></div>
 </form>
 <div class="close" (click)="close()"></div>
