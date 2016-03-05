@@ -33,6 +33,7 @@ export class SipIt {
     store.subscribe(()=> {
       this.players = store.getState().players;
       document.getElementById('output').innerHTML = store.getState().output;
+      localStorage.setItem('players', JSON.stringify(store.getState().players));
     });
   }
   diceSips(): number {
@@ -55,9 +56,9 @@ export class SipIt {
       store.dispatch(resetLastPlayerMulti());
     }
     store.dispatch(setLastPlayer(player.name));
-    this.output = this.generateOutput(player, drinkOrDeal, sips);
-    store.dispatch(setOutput(this.output));
-    this.speechOutput(this.output);
+    let output = this.generateOutput(player, drinkOrDeal, sips);
+    store.dispatch(setOutput(output));
+    this.speechOutput(output);
   }
   generateOutput(player: Player, drinkOrDeal: string, sips:number): string {
     if (store.getState().lastPlayer.multi === 1) {
