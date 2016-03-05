@@ -4,13 +4,16 @@
 
 import {bootstrap} from 'angular2/platform/browser';
 import {Component, Inject, provide} from 'angular2/core';
-import {store} from './Store';
+import {createStore, Store} from 'redux';
+import {rootReducer} from './Store';
 import {Observable} from 'rxjs';
 import {Player} from './Player';
 import {ConfigService} from './ConfigService';
 import {PlayersMenu} from './PlayersMenu';
 import {ConfigMenu} from './ConfigMenu';
-import {resetPlayersMultiplier} from './Actions';
+import {resetPlayersMultiplier, setLastPlayer, resetLastPlayerMulti, incrementLastPlayerMulti, setOutput} from './Actions';
+
+const store = createStore(rootReducer, window.devToolsExtension ? window.devToolsExtension() : undefined);
 
 @Component({
   selector: 'sipIt',
@@ -19,15 +22,18 @@ import {resetPlayersMultiplier} from './Actions';
 })
 
 export class SipIt {
-  lastPlayer: Player;
-  output: string;
+  players: Player[] = store.getState().players;
   autoPlayInterval: number;
   autoPlay: string = 'play';
 
-  constructor(@Inject(ConfigService) private configService: ConfigService) {
+  constructor(@Inject(ConfigService) private configService: ConfigService, @Inject('Store') private store: Store) {
     Observable.fromEvent(document, 'keyup')
       .filter((e:KeyboardEvent) => e.keyCode === 32)
       .subscribe(()=>this.rollTheDice());
+    store.subscribe(()=> {
+      this.players = store.getState().players;
+      document.getElementById('output').innerHTML = store.getState().output;
+    });
   }
   diceSips(): number {
     return Math.floor(Math.random() * (this.configService.maxSips + 1 - this.configService.minSips)) + this.configService.minSips;
@@ -43,22 +49,25 @@ export class SipIt {
     let sips = this.diceSips();
     let player = this.dicePlayer();
     var drinkOrDeal = this.drinkOrDeal();
-    if (this.lastPlayer.name === player) {
-      player.multi++;
-    } 
-    this.lastPlayer = player;
+    if (store.getState().lastPlayer.name === player.name) {
+      store.dispatch(incrementLastPlayerMulti());
+    } else {
+      store.dispatch(resetLastPlayerMulti());
+    }
+    store.dispatch(setLastPlayer(player.name));
     this.output = this.generateOutput(player, drinkOrDeal, sips);
+    store.dispatch(setOutput(this.output));
     this.speechOutput(this.output);
   }
   generateOutput(player: Player, drinkOrDeal: string, sips:number): string {
-    if (player.multi === 1) {
+    if (store.getState().lastPlayer.multi === 1) {
       if (sips === 1) {
         return `${player.name} ${drinkOrDeal} ${sips} Schluck!`;
       } else {
         return `${player.name} ${drinkOrDeal} ${sips} Schlücke!`;
       }
     } else {
-      return `${player.name} ${drinkOrDeal} ${sips} mal ${player.multi} Schlücke wegen Multiplikator x${player.multi}`;
+      return `${player.name} ${drinkOrDeal} ${sips} mal ${store.getState().lastPlayer.multi} Schlücke wegen Multiplikator x${store.getState().lastPlayer.multi}`;
     }
   }
   speechOutput(msg: string): void{

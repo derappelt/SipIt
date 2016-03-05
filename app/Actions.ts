@@ -21,3 +21,29 @@ export function resetPlayersMultiplier(){
     type: 'RESET_PLAYERS_MULTIPLIER'
   }
 }
+
+export function setLastPlayer(name: string){
+  return {
+    type: 'SET_LAST_PLAYER',
+    name: name
+  }
+}
+
+export function resetLastPlayerMulti(){
+  return {
+    type: 'RESET_LAST_PLAYER_MULTI'
+  }
+}
+
+export function incrementLastPlayerMulti(){
+  return {
+    type: 'INCREMENT_LAST_PLAYER_MULTI'
+  }
+}
+
+export function setOutput(output: string){
+  return {
+    type: 'SET_OUTPUT',
+    output: output
+  }
+}
