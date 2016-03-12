@@ -1,6 +1,7 @@
 ///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
 ///<reference path="../typings/tsd.d.ts"/>
 /// <reference path="../typings/window.d.ts"/>
+declare var require: any
 
 import {bootstrap} from 'angular2/platform/browser';
 import {Component, Inject, provide} from 'angular2/core';
@@ -16,13 +17,13 @@ import {resetPlayersMultiplier, setLastPlayer, resetLastPlayerMulti, incrementLa
 const store = createStore(rootReducer, window.devToolsExtension ? window.devToolsExtension() : undefined);
 
 @Component({
-  selector: 'sipIt',
+  selector: 'sipit',
   directives: [PlayersMenu, ConfigMenu],
-  templateUrl: 'app/SipIt.html'
+  template: require('html!./SipIt.html')
 })
 
 export class SipIt {
-  players: Player[] = store.getState().players;
+  players: Player[];
   autoPlayInterval: number;
   autoPlay: string = 'play';
 
@@ -30,6 +31,7 @@ export class SipIt {
     Observable.fromEvent(document, 'keyup')
       .filter((e:KeyboardEvent) => e.keyCode === 32)
       .subscribe(()=>this.rollTheDice());
+    this.players = store.getState().players;
     store.subscribe(()=> {
       this.players = store.getState().players;
       document.getElementById('output').innerHTML = store.getState().output;

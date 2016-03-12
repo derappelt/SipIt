@@ -2,10 +2,11 @@ import {Component, Inject, Input} from 'angular2/core';
 import {Store} from 'redux';
 import {addPlayer, removePlayer} from './Actions';
 import {Player} from './Player';
+declare var require: any
 
 @Component({
   selector: 'playersMenu',
-  templateUrl: 'app/PlayersMenu.html',
+  template: require('html!./PlayersMenu.html')
 })
 
 export class PlayersMenu {
