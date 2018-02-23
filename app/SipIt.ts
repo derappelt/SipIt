@@ -70,7 +70,7 @@ export class SipIt {
         return `${player.name} ${drinkOrDeal} ${sips} Schlücke!`;
       }
     } else {
-      return `${player.name} ${drinkOrDeal} ${sips} mal ${store.getState().lastPlayer.multi} Schlücke wegen Multiplikator x${store.getState().lastPlayer.multi}`;
+      return `${player.name} ${drinkOrDeal} ${sips} mal ${store.getState().lastPlayer.multi} Schlücke`;
     }
   }
   speechOutput(msg: string): void{
