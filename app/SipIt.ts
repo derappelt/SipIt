@@ -55,7 +55,7 @@ generateOutput(player, drinkOrDeal, sips): string {
       return `${player.name} ${drinkOrDeal} ${sips} Schlücke!`;
     }
   } else {
-    return `${player.name} ${drinkOrDeal} ${sips} mal ${player.multi} Schlücke wegen Multiplikator x${player.multi}`;
+    return `${player.name} ${drinkOrDeal} ${sips} mal ${player.multi} Schlücke`;
   }
 }
 speechOutput(msg: string){
